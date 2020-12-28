@@ -1,0 +1,28 @@
+Host oak
+	#HostName rcg-linux-ts1.rcg.sfu.ca
+	HostName ensc-rcl-01.engineering.sfu.ca
+
+Host rerun
+	ProxyCommand ssh -q oak nc rerun.ensc.sfu.ca 22
+
+Host peanuts
+	ProxyCommand ssh -q oak nc peanuts.ensc.sfu.ca 22
+
+Host woodstock
+	ProxyCommand ssh -q oak nc woodstock.ensc.sfu.ca 22
+
+Host ensc-rcl-1
+	ProxyCommand ssh -q oak nc ensc-rcl-1.research.sfu.ca 22
+	ServerAliveInterval 60
+
+Host home-server
+	HostName 192.168.1.76
+	ServerAliveInterval 60
+
+Host gitlab.com
+	IdentityFile ~/.ssh/id_ed25519_gitlab
+	User git 
+
+Host github.com
+	IdentityFile ~/.ssh/id_ed25519_github
+	User git

@@ -46,6 +46,10 @@ call plug#begin('~/.vim/plugged')
 " YouCompleteme
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
 
+" Markdown 
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
+
  "Deoplete 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -58,8 +62,8 @@ endif
 " color package
 Plug 'gruvbox-community/gruvbox'
 
-"systemverilog
-" Plug 'godlygeek/tabular'
+"align texts
+ Plug 'godlygeek/tabular'
 
 "Nerd Comment
 Plug 'preservim/nerdcommenter'
@@ -146,7 +150,10 @@ map <leader>ba :%bd!<cr>
 " List all buffers
 map <leader>bs :buffers<cr>
 set backspace=indent,eol,start
+" open nerdtree 
 nmap <leader>b :NERDTreeToggle<CR>
+" open terminal in vim
+nmap <leader>t :term<CR>
 "let g:NERDTreeDirArrows=0
 let g:NERDTreeDirArrowExpandable='|'
 let g:NERDTreeDirArrowCollapsible='+'
@@ -163,6 +170,8 @@ let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "close scratch automatically
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" markdown configs
 
 
 

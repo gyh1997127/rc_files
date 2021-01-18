@@ -48,7 +48,7 @@ call plug#begin('~/.vim/plugged')
 
 " Markdown 
 Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
  "Deoplete 
 if has('nvim')
@@ -172,7 +172,9 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " markdown configs
-
-
-
-
+autocmd FileType markdown set conceallevel=0
+autocmd FileType markdown normal zR
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_strikethrough=1
+let g:mkdp_refresh_slow = 1
+let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css'

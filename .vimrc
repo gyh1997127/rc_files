@@ -44,20 +44,20 @@ set cc=""
 
 call plug#begin('~/.vim/plugged')
 " YouCompleteme
-"Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
 
 " Markdown 
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
  "Deoplete 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/nvim-yarp'
+  "Plug 'roxma/vim-hug-neovim-rpc'
+"endif
 
 " color package
 Plug 'gruvbox-community/gruvbox'
@@ -178,3 +178,13 @@ let g:vim_markdown_frontmatter=1
 let g:vim_markdown_strikethrough=1
 let g:mkdp_refresh_slow = 1
 let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css'
+
+" YCM Keymaps
+nnoremap <leader>g :YcmCompleter GoTo<CR>
+let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
+
+" Folding mapping
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview

@@ -1,14 +1,17 @@
 syntax on
 
+set foldenable
 set pyxversion=3
 set formatoptions-=ro
 set splitright
 set showmatch
-set autoindent
 set noerrorbells
-set tabstop=4 softtabstop=4
+set tabstop=4 
+set softtabstop=4
 set shiftwidth=4
-set expandtab
+set noexpandtab
+set shiftround
+set autoindent
 set smartindent
 set nu
 set wrap
@@ -49,15 +52,7 @@ Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
 " Markdown 
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
- "Deoplete 
-"if has('nvim')
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-  "Plug 'Shougo/deoplete.nvim'
-  "Plug 'roxma/nvim-yarp'
-  "Plug 'roxma/vim-hug-neovim-rpc'
-"endif
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " color package
 Plug 'gruvbox-community/gruvbox'
@@ -88,6 +83,9 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
+
+" systemverilog 
+"Plug 'vhda/verilog_systemverilog.vim'
 call plug#end()
 
 "color stuff"
@@ -188,3 +186,27 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
+
+
+" Markdown Preview setting
+let g:mkdp_theme = 'light'
+let g:mkdp_preview_options = {                                                  
+    \ 'mkit': {},                                                               
+    \ 'katex': {},                                                              
+    \ 'uml': {},                                                                
+    \ 'maid': {},                                                               
+    \ 'disable_sync_scroll': 0,                                                 
+    \ 'sync_scroll_type': 'middle',                                             
+    \ 'hide_yaml_meta': 1,                                                      
+    \ 'sequence_diagrams': {},                                                  
+    \ 'flowchart_diagrams': {},                                                 
+    \ 'content_editable': v:false,                                              
+    \ 'disable_filename': 0,                                                    
+    \ }
+
+" .v/.sv settings
+"autocmd BufRead,BufNewFile *.v,*.vh setfiletype verilog
+autocmd BufRead,BufNewFile *.v,*.vh set expandtab tabstop=4 softtabstop=2 shiftwidth=2
+"autocmd BufRead,BufNewFile *.sv,*.svi set filetype=verilog_systemverilog
+autocmd BufRead,BufNewFile *.sv,*.svi set expandtab tabstop=4 softtabstop=2 shiftwidth=2
+

@@ -180,6 +180,7 @@ let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css
 " YCM Keymaps
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
+let g:ycm_clangd_binary_path = '/usr/local/opt/llvm/bin/clangd' 
 
 " Folding mapping
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -190,6 +191,7 @@ autocmd BufWinEnter *.* silent loadview
 
 " Markdown Preview setting
 let g:mkdp_theme = 'light'
+let g:mkdp_markdown_css = '/Volumes/MACDATA/Tools/github-markdown-css/github-markdown.css'
 let g:mkdp_preview_options = {                                                  
     \ 'mkit': {},                                                               
     \ 'katex': {},                                                              

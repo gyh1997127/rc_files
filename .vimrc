@@ -38,6 +38,8 @@ set ttimeout ttimeoutlen=20
 set laststatus=2
 "for vim-polyglot
 set nocompatible
+" enable scrolling
+set mouse=a
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -211,4 +213,5 @@ let g:mkdp_preview_options = {
 autocmd BufRead,BufNewFile *.v,*.vh set expandtab tabstop=4 softtabstop=2 shiftwidth=2
 "autocmd BufRead,BufNewFile *.sv,*.svi set filetype=verilog_systemverilog
 autocmd BufRead,BufNewFile *.sv,*.svi set expandtab tabstop=4 softtabstop=2 shiftwidth=2
+
 

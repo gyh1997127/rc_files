@@ -1,4 +1,4 @@
---extra=+q
+--extras=+q
 --fields=+i
 --recurse=yes
 --exclude=.git

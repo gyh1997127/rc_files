@@ -20,3 +20,4 @@
 --exclude=\*.cache
 --exclude=\*.dll
 --exclude=\*.pdb
+--exclude=\*.ctags

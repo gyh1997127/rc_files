@@ -90,10 +90,12 @@ Plug 'chriskempson/base16-vim'
 
 " systemverilog 
 Plug 'vhda/verilog_systemverilog.vim'
-call plug#end()
 
 " tagbar
 Plug 'preservim/tagbar'
+
+call plug#end()
+
 
 "color stuff"
 colorscheme gruvbox
@@ -238,5 +240,6 @@ function! UpdateTags()
   let resp = system(cmd)
 endfunction
 autocmd BufWritePost *.cpp,*.h,*.c,*.sv,*.svi,*.v call UpdateTags()
-autocmd VimEnter * !ctags
-"autocmd BufWritePost *.c,*.h,*.sv ctags . &
+
+" tagbar toggle 
+nmap <F8> :TagbarToggle<CR>

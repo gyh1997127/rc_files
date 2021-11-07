@@ -1,6 +1,7 @@
 syntax on
 
 set foldenable
+set foldmethod=syntax
 set pyxversion=3
 set formatoptions-=ro
 set splitright
@@ -87,7 +88,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'chriskempson/base16-vim'
 
 " systemverilog 
-"Plug 'vhda/verilog_systemverilog.vim'
+Plug 'vhda/verilog_systemverilog.vim'
 call plug#end()
 
 "color stuff"
@@ -190,7 +191,6 @@ vnoremap <Space> zf
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
-
 " Markdown Preview setting
 let g:mkdp_theme = 'light'
 let g:mkdp_markdown_css = '/Volumes/MACDATA/Tools/github-markdown-css/github-markdown.css'
@@ -213,5 +213,5 @@ let g:mkdp_preview_options = {
 autocmd BufRead,BufNewFile *.v,*.vh set expandtab tabstop=4 softtabstop=2 shiftwidth=2
 "autocmd BufRead,BufNewFile *.sv,*.svi set filetype=verilog_systemverilog
 autocmd BufRead,BufNewFile *.sv,*.svi set expandtab tabstop=4 softtabstop=2 shiftwidth=2
-
+autocmd BufWritePost *.c,*.h,*.sv,*.svi silent! !ctags . &
 

@@ -13,7 +13,8 @@ set shiftwidth=4
 set noexpandtab
 set shiftround
 set autoindent
-set smartindent
+"set smartindent
+set autoindent
 set nu
 set wrap
 set smartcase

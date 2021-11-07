@@ -91,6 +91,9 @@ Plug 'chriskempson/base16-vim'
 Plug 'vhda/verilog_systemverilog.vim'
 call plug#end()
 
+" tagbar
+Plug 'preservim/tagbar'
+
 "color stuff"
 colorscheme gruvbox
 set background=dark

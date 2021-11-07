@@ -13,7 +13,8 @@ set shiftwidth=4
 set noexpandtab
 set shiftround
 set autoindent
-set smartindent
+"set smartindent
+set autoindent
 set nu
 set wrap
 set smartcase
@@ -90,6 +91,9 @@ Plug 'chriskempson/base16-vim'
 " systemverilog 
 Plug 'vhda/verilog_systemverilog.vim'
 call plug#end()
+
+" tagbar
+Plug 'preservim/tagbar'
 
 "color stuff"
 colorscheme gruvbox

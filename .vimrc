@@ -238,4 +238,5 @@ function! UpdateTags()
   let resp = system(cmd)
 endfunction
 autocmd BufWritePost *.cpp,*.h,*.c,*.sv,*.svi,*.v call UpdateTags()
-
+autocmd VimEnter * !ctags
+"autocmd BufWritePost *.c,*.h,*.sv ctags . &

@@ -1,7 +1,10 @@
 syntax on
 
+if empty(v:servername) && exists('*remote_startserver')
+  call remote_startserver('VIM')
+endif
 set foldenable
-set foldmethod=syntax
+set foldmethod=manual
 set pyxversion=3
 set formatoptions-=ro
 set splitright
@@ -52,6 +55,11 @@ set cc=""
 call plug#begin('~/.vim/plugged')
 " YouCompleteme
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
+    nnoremap <leader>g :YcmCompleter GoTo<CR>
+    let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
+    let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
+    let g:ycm_key_list_select_completion = ['<Down>']
+    let g:ycm_key_list_previous_completion = ['<Up>']
 
 " Markdown 
 Plug 'plasticboy/vim-markdown'
@@ -96,20 +104,21 @@ Plug 'preservim/tagbar'
 
 " latex
 Plug 'lervag/vimtex'
-
-" snippets
-Plug 'sirver/ultisnips'
-    let g:UltiSnipsExpandTrigger = '<tab>'
-    let g:UltiSnipsJumpForwardTrigger = '<tab>'
-    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-Plug 'lervag/vimtex'
-    let g:tex_flavor='latex'
-    let g:vimtex_view_method='zathura'
-    let g:vimtex_quickfix_mode=0
+    let g:vimtex_view_general_viewer = 'qpdfview'
+    let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
+    filetype plugin indent on
+    syntax enable
 Plug 'KeitaNakamura/tex-conceal.vim'
     set conceallevel=1
     let g:tex_conceal='abdmg'
     hi Conceal ctermbg=none
+
+" snippets
+Plug 'sirver/ultisnips'
+    let g:UltiSnipsExpandTrigger = '<tab>'
+    setlocal spell
+    set spelllang=en_us
+    inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 call plug#end()
 
@@ -188,13 +197,6 @@ nnoremap <S-j> :m+<CR>
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
 
-" deoplete config
-let g:deoplete#enable_at_startup = 1
-" deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-"close scratch automatically
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " markdown configs
 autocmd FileType markdown set conceallevel=0
 autocmd FileType markdown normal zR
@@ -203,10 +205,6 @@ let g:vim_markdown_strikethrough=1
 let g:mkdp_refresh_slow = 1
 let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css'
 
-" YCM Keymaps
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
-let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
 
 " Folding mapping
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -261,32 +259,4 @@ autocmd BufWritePost *.cpp,*.h,*.c,*.sv,*.svi,*.v call UpdateTags()
 " tagbar toggle 
 nmap <F8> :TagbarToggle<CR>
 
-" vimtex
-" This is necessary for VimTeX to load properly. The "indent" is optional.
-" Note that most plugin managers will do this automatically.
-filetype plugin indent on
-" This enables Vim's and neovim's syntax-related features. Without this, some
-" VimTeX features will not work (see ":help vimtex-requirements" for more
-" info).
-syntax enable
-" Viewer options: One may configure the viewer either by specifying a built-in
-" viewer method:
-"let g:vimtex_view_method = 'zathura'
-" Or with a generic interface:
-let g:vimtex_view_general_viewer = 'masterpdfeditor4'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-" VimTeX uses latexmk as the default compiler backend. If you use it, which is
-" strongly recommended, you probably don't need to configure anything. If you
-" want another compiler backend, you can change it as follows. The list of
-" supported backends and further explanation is provided in the documentation,
- "see :help vimtex-compiler.
-"let g:vimtex_compiler_method = 'latexrun'
-" Most VimTeX mappings rely on localleader and this can be changed with the
-" following line. The default is usually fine and is the symbol "\.
-"let maplocalleader = ",
-
-" snippet
-setlocal spell
-set spelllang=en_us
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 

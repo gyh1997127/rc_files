@@ -109,16 +109,20 @@ Plug 'lervag/vimtex'
     filetype plugin indent on
     syntax enable
 Plug 'KeitaNakamura/tex-conceal.vim'
-    set conceallevel=1
+    set conceallevel=2
     let g:tex_conceal='abdmg'
     hi Conceal ctermbg=none
 
 " snippets
 Plug 'sirver/ultisnips'
     let g:UltiSnipsExpandTrigger = '<tab>'
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
     setlocal spell
     set spelllang=en_us
     inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" grammar check
+Plug 'rhysd/vim-grammarous'
 
 call plug#end()
 

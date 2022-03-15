@@ -1,7 +1,10 @@
 syntax on
 
+if empty(v:servername) && exists('*remote_startserver')
+  call remote_startserver('VIM')
+endif
 set foldenable
-set foldmethod=syntax
+set foldmethod=manual
 set pyxversion=3
 set formatoptions-=ro
 set splitright
@@ -52,6 +55,11 @@ set cc=""
 call plug#begin('~/.vim/plugged')
 " YouCompleteme
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
+    nnoremap <leader>g :YcmCompleter GoTo<CR>
+    let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
+    let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
+    let g:ycm_key_list_select_completion = ['<Down>']
+    let g:ycm_key_list_previous_completion = ['<Up>']
 
 " Markdown 
 Plug 'plasticboy/vim-markdown'
@@ -94,8 +102,27 @@ Plug 'vhda/verilog_systemverilog.vim'
 " tagbar
 Plug 'preservim/tagbar'
 
-" fast fold
-Plug 'Konfekt/FastFold'
+" latex
+Plug 'lervag/vimtex'
+    let g:vimtex_view_general_viewer = 'qpdfview'
+    let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
+    filetype plugin indent on
+    syntax enable
+Plug 'KeitaNakamura/tex-conceal.vim'
+    set conceallevel=2
+    let g:tex_conceal='abdmg'
+    hi Conceal ctermbg=none
+
+" snippets
+Plug 'sirver/ultisnips'
+    let g:UltiSnipsExpandTrigger = '<tab>'
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    setlocal spell
+    set spelllang=en_us
+    inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" grammar check
+Plug 'rhysd/vim-grammarous'
 
 call plug#end()
 
@@ -174,13 +201,6 @@ nnoremap <S-j> :m+<CR>
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
 
-" deoplete config
-let g:deoplete#enable_at_startup = 1
-" deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-"close scratch automatically
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " markdown configs
 autocmd FileType markdown set conceallevel=0
 autocmd FileType markdown normal zR
@@ -189,10 +209,6 @@ let g:vim_markdown_strikethrough=1
 let g:mkdp_refresh_slow = 1
 let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css'
 
-" YCM Keymaps
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
-let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
 
 " Folding mapping
 "nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -267,6 +283,3 @@ autocmd BufWritePost *.cpp,*.h,*.c,*.sv,*.svi,*.v call UpdateTags()
 
 " tagbar toggle 
 nmap <F8> :TagbarToggle<CR>
-
-" map jj to esc
-imap jj <Esc>

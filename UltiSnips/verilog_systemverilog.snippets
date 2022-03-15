@@ -1,0 +1,419 @@
+extends fpga
+
+snippet `in
+\`include "${1:uvm_macros.svh}"
+endsnippet
+
+#可综合部分
+snippet import  "import package"
+import   ${1:uvm_pkg}::*;
+\`include "uvm_macros.svh"
+定义全局参数, 数据类型
+include相关文件
+endsnippet
+
+snippet ffp "posclk sequential logic"
+always_ff @ (posedge clk) begin
+    $0
+end
+endsnippet	
+
+snippet ffn "neg sequential logic"
+always_ff @ (negedge ${1:clk}) begin
+    $0
+end
+endsnippet
+
+snippet comb "combination logic"
+always_comb begin
+    ${1:/*code*/}
+end
+endsnippet
+
+snippet latch "D latch"
+always_latch
+begin
+    ${1:/*code*/}
+end
+endsnippet
+
+snippet inside "a inside x"
+${1:/*var*/} inside ${2:/*var*/}
+endsnippet
+
+snippet log  "logic"
+logic                       ${1:inport};
+endsnippet
+
+snippet logb "logic  [xx:00]"
+logic   [${1:MSB}:00]             ${2:inport};
+endsnippet
+
+snippet in      "input logic  inport"
+input   logic               ${1:inport},
+endsnippet
+
+snippet inb     "input wire [MSB:0] inport"
+input   logic   [${1:MSB}:00]     ${2:inport},
+endsnippet
+
+#output
+snippet our    "logic  xxx"
+output  logic               ${1:outport},
+endsnippet
+
+snippet outr    "logic  [MSB:00]"
+output  logic   [${1:MSB}:00]     ${2:outport},
+endsnippet
+
+snippet package
+package ${1:name};
+endpackage
+endsnippet
+
+snippet state   "one hot encode machine state"
+localparam              IDLE    = 0;
+localparam              OVER    = 1;
+(* KEEP = "TRUE" *)reg    [OVER:00]        cs = 'd1, ns = 'd1;
+reg     [15:00]         state_cnt;
+
+// synthesis translate_off
+reg [127:0] cs_STRING;
+always @(*)
+begin
+    case(1'b1)
+        cs[IDLE]: cs_STRING = "IDLE";
+        cs[HEAD]: cs_STRING = "HEAD";
+        default: cs_STRING = "XXXX";
+    endcase
+end
+// synthesis translate_on
+
+always_ff @(posedge clk)
+begin
+    if(rst)
+        cs <= 'd1;
+    else
+        cs <= ns;
+end
+
+always_comb @(*)
+begin
+    ns = 'd0;
+    case(1'b1)
+        cs[IDLE]:
+        begin
+            if(/*condition*/)
+                ns[/*next_state*/] = 1'b1;
+            else
+                ns[IDLE] = 1'b1;
+        end
+        cs[HEAD]:
+        begin
+            if(/*condition*/)
+                ns[/*next_state*/] = 1'b1;
+            else
+                ns[HEAD] = 1'b1;
+        end
+        default:
+            ns[IDLE] = 1'b1;
+    endcase
+end
+
+
+always_ff @ (posedge clk)
+begin
+    if(rst)
+    begin
+    end
+    else
+    begin
+        case (1'b1)
+            ns[IDLE]:
+            begin
+                /*code*/
+            end
+            /*code*/
+            default:
+            begin
+                /*code*/
+            end
+        endcase
+    end
+end
+
+always_ff @ (posedge clk)
+begin
+    if(rst)
+        state_cnt <= 0;
+    else if (cs != ns)
+        state_cnt <= 0;
+    else
+        state_cnt <= state_cnt + 1'b1;
+end
+endsnippet
+
+#######################################################################
+######################   SIM          #################################
+#######################################################################
+snippet array "unpacked array"
+${1:type} name[${2:msb}:0];
+endsnippet
+
+snippet array "packed array"
+${1:type} [${2:msb}:0]name;
+endsnippet
+
+snippet queue   "queue"
+${1:int} ${2:name}[$] ${3:= {3,4}};
+endsnippet
+
+snippet interface   "use it like module"
+interface ${1:name} 
+(
+    input logic clk,
+    input logic rst,
+);
+/*
+    wire xxx;
+    logic xxx;
+*/
+
+endinterface
+endsnippet
+
+snippet clocking    "clocking block"
+clocking ${1:cb} @ (posedge clk);
+input   #${2:time}  /*signal*/;
+output  #${3:time}  /*signal*/;     // clk之后延迟time时间才会输出信号
+endclocking
+endsnippet
+
+snippet modport  "接口信号的不同方向"   
+// 使用modport的模块端口方向和modport里声明的一致
+modport ${1:master}
+(
+    input                       ${2:clk},
+    output                      ${2:clk},
+);
+endsnippet
+
+snippet struct  "typedef struct"
+typedef struct packed
+{
+    /*data*/;
+}${1:/*struct*/}_s;
+endsnippet
+
+snippet union     "typedef union"
+typedef union packed
+{
+    /*data*/;
+}${1:/*union*/}_u;
+endsnippet
+
+snippet foreach
+foreach(${1:name}[${2:index}])
+endsnippet
+
+snippet fork "阻塞到所有子进程结束"
+fork
+    begin
+    ${1:/*code_block1()*/}
+    end
+    begin
+    /*code_block2()*/
+    end
+join
+endsnippet
+
+snippet fork_any "阻塞到任意一子进程结束"
+fork
+    begin
+    ${1:/*code_block1()*/}
+    end
+    begin
+    /*code_block2()*/
+    end
+join_any
+endsnippet
+
+snippet fork_none "所有进程并发执行"
+fork
+    begin
+    ${1:/*code_block1()*/}
+    end
+    begin
+    /*code_block2()*/
+    end
+join_none
+endsnippet
+
+snippet task    "task template"
+task ${1:name}($2);
+    $3
+endtask
+endsnippet
+
+snippet function     "function template"
+function ${1:void} ${2:name}($3);
+$4
+endfunction
+endsnippet
+
+snippet class   "base class"
+class ${1:`!v expand('%:r')`};
+    /*
+     * 静态属性
+     */
+    function new(/*parameter*/);  // 需要赋初值的属性
+        //this.x = x;
+    endfunction
+endclass
+endsnippet
+
+snippet extend  "extend uvm_driver"
+class ${1:class_name} extends ${2:uvm_component};
+    function new(/*parameter*/);
+        //this.x = x;
+    endfunction
+endclass
+endsnippet
+
+snippet uvm  "uvm extend class"
+class ${1:class_name} extends ${2:uvm_component};
+\`uvm_component_utils($1);
+    function new (string name, uvm_component parent);
+        super.new(name, parent);
+    endfunction
+endclass
+endsnippet
+
+snippet assert  "assert ... else"
+assert(${1:condition})
+else
+    $error(${2:failed});
+endsnippet
+
+snippet urandom	"urandom_range"
+${1:veriable} = \$urandom_range(0, 255);
+endsnippet
+
+snippet mail
+endsnippet
+
+snippet interface_ex     "interface class useage exaple"
+dut_bfm dut_bfm_i();    // interface 声明
+dut_drive dut_drive_h;  // class声明
+initial
+begin
+    dut_driver_h = new(dut_bfm_i);
+end
+endsnippet
+
+snippet program "program block"
+program ${1:name}
+(
+);
+$2
+endprogram
+endsnippet
+
+snippet enum "typdef enum"
+typedef enum
+{
+    IDLE,
+    WRITE
+    //and so on
+}${1:name};
+$1      /*instance*/;
+endsnippet
+
+
+snippet covergroup "covergroup basic template"
+covergroup ${1:name} @(posedge clk);
+    address : coverpoint addr 
+    {
+        bins low = {0, 50};
+        bins med = {51, 150};
+        bins med = {151, 152};
+    }
+endgroup
+endsnippet
+
+snippet coverpoint "coverpoint template"
+${1:name} : coverpoint ${2:name}
+{
+    bins low = {0, 50};
+    bins med = {51, 100};
+    bins hig = {101, 150};
+}
+
+endsnippet
+
+#######################################################################
+######################   UVM          #################################
+#######################################################################
+
+snippet uvm_info    "LOW < MEDIUM < HIGH < FULL < DEBUG"
+\`uvm_info("${1:class_name}", "${2:info}", UVM_LOW);
+endsnippet
+
+snippet uvm_fatal    "LOW < MEDIUM < HIGH < FULL < DEBUG"
+\`uvm_fatal("${1:class_name}", "${2:info}");
+endsnippet
+
+snippet uvm_error    "LOW < MEDIUM < HIGH < FULL < DEBUG"
+\`uvm_error("${1:class_name}", "${2:info}");
+endsnippet
+
+snippet uvm_component_utils "注册新类"
+\`uvm_component_utils(${1:class_name});
+endsnippet
+
+snippet uvm_object_utils "注册新类"
+\`uvm_object_utils(${1:class_name});
+endsnippet
+
+snippet set "set - get"
+// 第一个参数和第二个参数联合起来组成目标路径，与此路径符合的目标才能收信。
+// 第一个参数必须是一个uvm_component实例的指针
+// 第二个参数是相对此实例的路径
+// 第三个参数表示一个记号，用以说明这个值是传给目标中的哪个成员的，
+// 第四个参数是要设置的值。
+uvm_config_db#(virtual ${1:interface})::set(null, "*", "bfm", bfm);
+endsnippet
+
+snippet get "set - get"
+uvm_config_db#(virtual ${1:interface})::get(this, "*", "bfm", bfm);
+endsnippet
+
+snippet ifndef "`ifndef ... `define ... `endif"
+\`ifndef ${1:FILE_NAME}_SVH
+\`define $1_SVH
+$2
+\`endif
+endsnippet
+
+snippet main_phase      "drive signal to interface"
+main_phase(uvm_phase phase);
+    phase.raise_objection(this);
+    \`uvm_info("dut_driver", "main phase is called", UVM_LOW);
+    $1
+    phase.drop_objection(this);
+endtask
+endsnippet
+
+snippet connect_phase
+virtual function void connect_phase(uvm_phase phase);
+    super.connect_phase(phase);
+endfunction
+endsnippet
+
+snippet raise_objection "如果没有drop, 结束当前phase"
+raise_objection
+endsnippet
+
+snippet create "factory机制实例化方式"
+${1:drv} = ${2:type_name}::type_id::create("$1", this);
+endsnippet

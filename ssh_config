@@ -1,6 +1,6 @@
 Host oak
-	#HostName rcg-linux-ts1.rcg.sfu.ca
-	HostName ensc-rcl-01.engineering.sfu.ca
+	#HostName ensc-rcl-01.engineering.sfu.ca
+	HostName rcga-linux-ts1.dc.sfu.ca
 
 Host rerun
 	ProxyCommand ssh -q oak nc rerun.ensc.sfu.ca 22
@@ -11,7 +11,7 @@ Host peanuts
 Host woodstock
 	ProxyCommand ssh -q oak nc woodstock.ensc.sfu.ca 22
 
-Host ensc-rcl-1
+Host rcl-1
 	ProxyCommand ssh -q oak nc ensc-rcl-1.research.sfu.ca 22
 	ServerAliveInterval 60
 

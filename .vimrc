@@ -94,6 +94,9 @@ Plug 'vhda/verilog_systemverilog.vim'
 " tagbar
 Plug 'preservim/tagbar'
 
+" fast fold
+Plug 'Konfekt/FastFold'
+
 call plug#end()
 
 
@@ -192,8 +195,8 @@ let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/thir
 let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
 
 " Folding mapping
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+"vnoremap <Space> zf
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
@@ -214,11 +217,32 @@ let g:mkdp_preview_options = {
     \ 'disable_filename': 0,                                                    
     \ }
 
+" verilog_systemverilog setting
 " .v/.sv settings
 "autocmd BufRead,BufNewFile *.v,*.vh setfiletype verilog
-autocmd BufRead,BufNewFile *.v,*.vh set expandtab tabstop=4 softtabstop=2 shiftwidth=2
+autocmd BufRead,BufNewFile *.v,*.vh set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 "autocmd BufRead,BufNewFile *.sv,*.svi set filetype=verilog_systemverilog
-autocmd BufRead,BufNewFile *.sv,*.svi set expandtab tabstop=4 softtabstop=2 shiftwidth=2
+autocmd BufRead,BufNewFile *.sv,*.svi set expandtab tabstop=4 softtabstop=4 shiftwidth=4
+"let g:verilog_indent_width=2
+"let g:verilog_indent_assign_fix = 1
+
+" fast fold
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 0
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:markdown_folding = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:ruby_fold = 1
+let g:perl_fold = 1
+let g:perl_fold_blocks = 1
+let g:r_syntax_folding = 1
+let g:rust_fold = 1
+let g:php_folding = 1
 
 " auto generate and update tags
 function! DelTagOfFile(file)
@@ -243,3 +267,6 @@ autocmd BufWritePost *.cpp,*.h,*.c,*.sv,*.svi,*.v call UpdateTags()
 
 " tagbar toggle 
 nmap <F8> :TagbarToggle<CR>
+
+" map jj to esc
+imap jj <Esc>

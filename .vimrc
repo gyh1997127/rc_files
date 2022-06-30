@@ -284,3 +284,7 @@ autocmd BufWritePost *.cpp,*.h,*.c,*.sv,*.svi,*.v call UpdateTags()
 
 " tagbar toggle 
 nmap <F8> :TagbarToggle<CR>
+
+" JJ is Esc
+imap jj <Esc>
+

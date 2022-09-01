@@ -53,14 +53,16 @@ set cc=""
 " set guifont=KaiTi:h11
 
 call plug#begin('~/.vim/plugged')
-" YouCompleteme
+ "YouCompleteme
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
     nnoremap <leader>g :YcmCompleter GoTo<CR>
-    let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
-    let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
+    "let g:ycm_global_ycm_extra_conf = '/Users/yuhuig/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/global_ycm_extra_conf.py'
+    "let g:ycm_clangd_binary_path = '/localhdd/yuhuig/tools/clangd_12.0.0/bin/clangd' 
     let g:ycm_key_list_select_completion = ['<Down>']
     let g:ycm_key_list_previous_completion = ['<Up>']
     let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_server_keep_logfiles = 1
+    let g:ycm_server_log_level = 'debug'
 
 " Markdown 
 Plug 'plasticboy/vim-markdown'
@@ -105,8 +107,12 @@ Plug 'preservim/tagbar'
 
 " latex
 Plug 'lervag/vimtex'
-    let g:vimtex_view_general_viewer = 'qpdfview'
-    let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
+    let g:tex_flavor='latex'
+    let g:vimtex_view_method = 'skim' " Choose which program to use to view PDF file
+    let g:vimtex_view_skim_sync = 1 " Value 1 allows forward search after every successful compilation
+    let g:vimtex_view_skim_activate = 1 " Value 1 allows change focus to skim after command `:VimtexView` is given
+    "let g:vimtex_view_general_viewer = 'qpdfview'
+    "let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
     filetype plugin indent on
     syntax enable
 Plug 'KeitaNakamura/tex-conceal.vim'
@@ -192,7 +198,7 @@ set backspace=indent,eol,start
 nmap <leader>b :NERDTreeToggle<CR>
 " open terminal in vim
 nmap <leader>t :term<CR>
-"let g:NERDTreeDirArrows=0
+let g:NERDTreeDirArrows=2
 let g:NERDTreeDirArrowExpandable='|'
 let g:NERDTreeDirArrowCollapsible='+'
 
@@ -262,6 +268,8 @@ let g:rust_fold = 1
 let g:php_folding = 1
 
 " auto generate and update tags
+let g:tagbar_ctags_bin = "/usr/local/Cellar/ctags/5.8_2/bin/ctags"
+
 function! DelTagOfFile(file)
   let fullpath = a:file
   let cwd = getcwd()

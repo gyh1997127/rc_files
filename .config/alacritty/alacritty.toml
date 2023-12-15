@@ -1,0 +1,5 @@
+working_directory = "~/Documents/Work"
+live_config_reload = true
+
+[window]
+decorations = "None"

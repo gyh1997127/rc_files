@@ -93,7 +93,7 @@ call plug#begin('~/.vim/plugged')
 " git
 Plug 'tpope/vim-fugitive'
 
-" Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
@@ -188,9 +188,9 @@ Plug 'vhda/verilog_systemverilog.vim'
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-    let g:gutentags_ctags_executable= '/usr/local/bin/ctags'
+    "let g:gutentags_ctags_executable= '/usr/local/bin/ctags'
 	" auto generate and update tags
-	let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+	"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 	" tagbar toggle
 	nmap <F8> :TagbarToggle<CR>
 

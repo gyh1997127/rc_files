@@ -1,18 +1,18 @@
+set foldmethod=syntax
 syntax on
-set foldenable
-set foldmethod=manual
+filetype plugin indent on
 set pyxversion=3
 set formatoptions-=ro
 set splitright
 set showmatch
 set noerrorbells
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set noexpandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 set shiftround
 "set smartindent
-"set autoindent
+set autoindent
 set nu
 set wrap
 set smartcase
@@ -49,7 +49,7 @@ set cc=""
 "remap keys
 nnoremap <Leader>w :w<CR>
 if executable('rg')
-    let g:rg_derive_root='true'
+  let g:rg_derive_root='true'
 endif
 nnoremap <Leader>+ :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
@@ -86,10 +86,7 @@ imap jj <Esc>
 nnoremap <C-]> <C-W><C-V><C-]>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
-" fold
-"Plug 'Konfekt/FastFold'
-
+call plug#begin('~/.vim/plug')
 " git
 Plug 'tpope/vim-fugitive'
 
@@ -99,116 +96,106 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-    " markdown configs
-    autocmd FileType markdown set conceallevel=0
-    autocmd FileType markdown normal zR
-    let g:vim_markdown_frontmatter=1
-    let g:vim_markdown_strikethrough=1
-    let g:mkdp_refresh_slow = 1
-    let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css'
+  " markdown configs
+  "autocmd FileType markdown set conceallevel=0
+  "autocmd FileType markdown normal zR
+  let g:vim_markdown_frontmatter=1
+  let g:vim_markdown_strikethrough=1
+  let g:mkdp_refresh_slow = 1
+  let g:mkdp_markdown_css='/Volumes/MACDATA/Tools/rc_files/github-markdown-css.css'
 
-    " Markdown Preview setting
-    let g:mkdp_theme = 'light'
-    let g:mkdp_markdown_css = '/Volumes/MACDATA/Tools/github-markdown-css/github-markdown.css'
-    let g:mkdp_preview_options = {
-        \ 'mkit': {},
-        \ 'katex': {},
-        \ 'uml': {},
-        \ 'maid': {},
-        \ 'disable_sync_scroll': 0,
-        \ 'sync_scroll_type': 'middle',
-        \ 'hide_yaml_meta': 1,
-        \ 'sequence_diagrams': {},
-        \ 'flowchart_diagrams': {},
-        \ 'content_editable': v:false,
-        \ 'disable_filename': 0,
-        \ }
+  " Markdown Preview setting
+  let g:mkdp_theme = 'light'
+  let g:mkdp_markdown_css = '/Volumes/MACDATA/Tools/github-markdown-css/github-markdown.css'
+  let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0,
+    \ }
 
 "align texts
  Plug 'godlygeek/tabular'
 
 "Nerd Comment
 Plug 'preservim/nerdcommenter'
-    let g:NERDCreateDefaultMappings = 1
+  let g:NERDCreateDefaultMappings = 1
 
 " fast searching
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-    let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-    let g:fzf_colors =
-        \ { 'fg':    ['fg', 'Normal'],
-        \ 'bg':      ['bg', 'Normal'],
-        \ 'hl':      ['fg', 'Comment'],
-        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-        \ 'hl+':     ['fg', 'Statement'],
-        \ 'info':    ['fg', 'PreProc'],
-        \ 'border':  ['fg', 'Ignore'],
-        \ 'prompt':  ['fg', 'Conditional'],
-        \ 'pointer': ['fg', 'Exception'],
-        \ 'marker':  ['fg', 'Keyword'],
-        \ 'spinner': ['fg', 'Label'],
-        \ 'header':  ['fg', 'Comment'] }
-    nnoremap <Leader>pf :Files<CR>
-    " fuzzy search commnad
-    "command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+  let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+  nnoremap <Leader>pf :Files<CR>
+  " fuzzy search commnad
+  "command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 Plug 'sheerun/vim-polyglot'
 
 Plug 'scrooloose/nerdTree'
-	nmap <leader>b :NERDTreeToggle<CR>
-    let g:NERDTreeDirArrows=2
-    let g:NERDTreeDirArrowExpandable='|'
-    let g:NERDTreeDirArrowCollapsible='+'
-    let g:NERDTreeChDirMode = 2
+  nmap <leader>b :NERDTreeToggle<CR>
+  let g:NERDTreeDirArrows=2
+  let g:NERDTreeDirArrowExpandable='|'
+  let g:NERDTreeDirArrowCollapsible='+'
+  let g:NERDTreeChDirMode = 2
 
 Plug 'sainnhe/gruvbox-material'
-     if has('termguicolors')
-       set termguicolors
-     endif
-     set background=dark
-     let g:gruvbox_material_background = 'medium'
-     let g:gruvbox_material_better_performance = 1
+   if has('termguicolors')
+     set termguicolors
+   endif
+   set background=dark
+   let g:gruvbox_material_background = 'medium'
+   let g:gruvbox_material_better_performance = 1
 
 Plug 'itchyny/lightline.vim'
-    let g:lightline = {'colorscheme' : 'gruvbox_material'}
-    let g:lightline = {
-                \ 'active': {
-                \   'left': [ [ 'mode', 'paste' ],
-                \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-          \ },
-          \ 'component_function': {
-          \   'gitbranch': 'FugitiveHead'
-          \ },
-          \ }
+  let g:lightline = {'colorscheme' : 'gruvbox_material'}
+  let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \       [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 " systemverilog
 Plug 'vhda/verilog_systemverilog.vim'
+  let g:verilog_syntax_fold_lst = "class,function,task"
+
+" fold
+"Plug 'Konfekt/FastFold'
+  "nmap <F6> <Plug>(FastFoldUpdate)
+  "let g:fastfold_savehook = 1
+  "let g:fastfold_fold_command_suffixes = []
+  "let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+  "autocmd FileType sv,svh,v setlocal foldmethod=syntax
 
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-    "let g:gutentags_ctags_executable= '/usr/local/bin/ctags'
-	" auto generate and update tags
-	"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-	" tagbar toggle
-	nmap <F8> :TagbarToggle<CR>
+  nmap <F8> :TagbarToggle<CR>
 
 " latex
 Plug 'lervag/vimtex'
-    let g:tex_flavor='latex'
-    let g:vimtex_view_method = 'skim' " Choose which program to use to view PDF file
-    let g:vimtex_view_skim_sync = 1 " Value 1 allows forward search after every successful compilation
-    let g:vimtex_view_skim_activate = 1 " Value 1 allows change focus to skim after command `:VimtexView` is given
-    "let g:vimtex_view_general_viewer = 'qpdfview'
-    "let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
-    filetype plugin indent on
-    syntax enable
+  let g:tex_flavor='latex'
+  let g:vimtex_view_method = 'skim' " Choose which program to use to view PDF file
+  let g:vimtex_view_skim_sync = 1 " Value 1 allows forward search after every successful compilation
+  let g:vimtex_view_skim_activate = 1 " Value 1 allows change focus to skim after command `:VimtexView` is given
+  "let g:vimtex_view_general_viewer = 'qpdfview'
+  "let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
+  syntax enable
 
 Plug 'KeitaNakamura/tex-conceal.vim'
-    set conceallevel=2
-    let g:tex_conceal='abdmg'
-    hi Conceal ctermbg=none
+  set conceallevel=2
+  let g:tex_conceal='abdmg'
+  hi Conceal ctermbg=none
 
 Plug 'mtdl9/vim-log-highlighting'
 

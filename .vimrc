@@ -90,7 +90,9 @@ call plug#begin('~/.vim/plug')
 " git
 Plug 'tpope/vim-fugitive'
 
-Plug 'ycm-core/YouCompleteMe'
+" Jedi autocomplete
+Plug 'ervandew/supertab'
+"Plug 'ycm-core/YouCompleteMe'
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
@@ -167,7 +169,7 @@ Plug 'itchyny/lightline.vim'
 
 " systemverilog
 Plug 'vhda/verilog_systemverilog.vim'
-  let g:verilog_syntax_fold_lst = "class,function,task"
+  let g:verilog_syntax_fold_lst = "function,task"
 
 " fold
 "Plug 'Konfekt/FastFold'
@@ -180,6 +182,10 @@ Plug 'vhda/verilog_systemverilog.vim'
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
+  let g:gutentags_ctags_executable='/home/users/ygao/tools/bin/ctags/ctags'
+  " auto generate and update tags
+  let g:tagbar_ctags_bin = "/home/users/ygao/tools/bin/ctags/ctags"
+  " tagbar toggle
   nmap <F8> :TagbarToggle<CR>
 
 " latex

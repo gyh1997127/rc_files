@@ -86,9 +86,6 @@ imap jj <Esc>
 nnoremap <C-]> <C-W><C-V><C-]>
 
 set cursorline
-highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=lightgrey
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=lightgrey
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plug')
@@ -196,11 +193,9 @@ Plug 'ludovicchabant/vim-gutentags'
 " latex
 Plug 'lervag/vimtex'
   let g:tex_flavor='latex'
-  let g:vimtex_view_method = 'skim' " Choose which program to use to view PDF file
-  let g:vimtex_view_skim_sync = 1 " Value 1 allows forward search after every successful compilation
-  let g:vimtex_view_skim_activate = 1 " Value 1 allows change focus to skim after command `:VimtexView` is given
-  "let g:vimtex_view_general_viewer = 'qpdfview'
-  "let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
+  let g:vimtex_view_method = 'skim'
+  let g:vimtex_view_skim_sync = 1 
+  let g:vimtex_view_skim_activate = 1
   syntax enable
 
 Plug 'KeitaNakamura/tex-conceal.vim'

@@ -42,9 +42,8 @@ set nocompatible
 set mouse=a
 let mapleader = " "
 
-set colorcolumn=80
+set colorcolumn=120
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-set cc=""
 
 "remap keys
 nnoremap <Leader>w :w<CR>
@@ -85,7 +84,11 @@ imap jj <Esc>
 " open tag result in new vert split
 nnoremap <C-]> <C-W><C-V><C-]>
 
-set cursorline
+" highlight cursor line
+"set cursorline
+"highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+"autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
+"autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plug')
@@ -135,10 +138,25 @@ Plug 'preservim/nerdcommenter'
 " fast searching
 Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-  let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'relative': v:true } }
   nnoremap <Leader>pf :Files<CR>
-  " fuzzy search commnad
-  "command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+  nnoremap <Leader>rg :Rg<CR>
+  command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['--info=inline', '--preview', 'cat {}']}, <bang>0)
+  command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" '.shellescape(<q-args>), 1, <bang>0)
+  let g:fzf_colors =
+        \ { 'fg':      ['fg', 'Normal'],
+        \ 'bg':      ['bg', 'Normal'],
+        \ 'hl':      ['fg', 'Comment'],
+        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+        \ 'hl+':     ['fg', 'Statement'],
+        \ 'info':    ['fg', 'PreProc'],
+        \ 'border':  ['fg', 'Ignore'],
+        \ 'prompt':  ['fg', 'Conditional'],
+        \ 'pointer': ['fg', 'Exception'],
+        \ 'marker':  ['fg', 'Keyword'],
+        \ 'spinner': ['fg', 'Label'],
+        \ 'header':  ['fg', 'Comment'] }
 
 Plug 'sheerun/vim-polyglot'
 
@@ -149,29 +167,9 @@ Plug 'scrooloose/nerdTree'
   let g:NERDTreeDirArrowCollapsible='+'
   let g:NERDTreeChDirMode = 2
 
-Plug 'sainnhe/gruvbox-material'
-   if has('termguicolors')
-     set termguicolors
-   endif
-   set background=dark
-   let g:gruvbox_material_background = 'medium'
-   let g:gruvbox_material_better_performance = 1
-
-Plug 'itchyny/lightline.vim'
-  let g:lightline = {'colorscheme' : 'gruvbox_material'}
-  let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \       [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
-
 " systemverilog
 Plug 'vhda/verilog_systemverilog.vim'
-  let g:verilog_syntax_fold_lst = "function,task"
+  let g:verilog_syntax_fold_lst = "covergroup,function,task"
 
 " fold
 "Plug 'Konfekt/FastFold'
@@ -184,18 +182,20 @@ Plug 'vhda/verilog_systemverilog.vim'
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-  let g:gutentags_ctags_executable='/home/users/ygao/tools/bin/ctags/ctags'
+  let g:gutentags_ctags_executable='~/tools/bin/ctags/ctags'
   " auto generate and update tags
-  let g:tagbar_ctags_bin = "/home/users/ygao/tools/bin/ctags/ctags"
+  let g:tagbar_ctags_bin = "~/tools/bin/ctags/ctags"
   " tagbar toggle
   nmap <F8> :TagbarToggle<CR>
 
 " latex
 Plug 'lervag/vimtex'
   let g:tex_flavor='latex'
-  let g:vimtex_view_method = 'skim'
-  let g:vimtex_view_skim_sync = 1 
-  let g:vimtex_view_skim_activate = 1
+  let g:vimtex_view_method = 'skim' " Choose which program to use to view PDF file
+  let g:vimtex_view_skim_sync = 1 " Value 1 allows forward search after every successful compilation
+  let g:vimtex_view_skim_activate = 1 " Value 1 allows change focus to skim after command `:VimtexView` is given
+  "let g:vimtex_view_general_viewer = 'qpdfview'
+  "let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
   syntax enable
 
 Plug 'KeitaNakamura/tex-conceal.vim'
@@ -205,11 +205,45 @@ Plug 'KeitaNakamura/tex-conceal.vim'
 
 Plug 'mtdl9/vim-log-highlighting'
 
+" indent line
+Plug 'nathanaelkane/vim-indent-guides'
+
+Plug 'NLKNguyen/papercolor-theme'
+
+Plug 'davidosomething/vim-colors-meh'
+
+Plug 'aditya-azad/candle-grey'
+
+Plug 'andreasvc/vim-256noir'
+
+Plug 'junegunn/seoul256.vim'
+
+Plug 'sainnhe/gruvbox-material'
+   let g:gruvbox_material_background = 'medium'
+   let g:gruvbox_material_better_performance = 1
+   let g:gruvbox_material_disable_italic_comment = 1
+
+Plug 'itchyny/lightline.vim'
+  let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \       [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
 call plug#end()
 
 " this has to be called AFTER plug#end()
+"colorscheme meh
+"colorscheme 256_noir
+"colorscheme seoul256
 colorscheme gruvbox-material
+set termguicolors
+set background=light
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-

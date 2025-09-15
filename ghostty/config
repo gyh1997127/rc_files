@@ -1,0 +1,15 @@
+theme=GruvboxLight
+theme=gruvbox-material
+
+# font
+window-title-font-family="JetBrains Mono NL Medium"
+font-family="JetBrains Mono NL Medium"
+font-size=12
+
+#keybind
+keybind = ctrl+a>\=new_split:right
+keybind = ctrl+a>-=new_split:down
+keybind = ctrl+a>k=goto_split:up
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>l=goto_split:right

@@ -1,25 +1,15 @@
-# Fig pre block. Keep at the top of this file.
-##
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/notg00datmath/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+ZSH_THEME="Simple"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -80,7 +70,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,41 +99,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# openfortivpn
-alias openfortivpn="op item get sfu-yuhuig --otp | pbcopy && sudo openfortivpn -c ~/Documents/Tools/rc_files/openfortivpn-config"
-
-# vim
-alias vim="vim -u ~/Documents/Tools/rc_files/.vimrc"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# exa alias
-alias l='exa'
-alias ls='exa -lh'
-alias la='exa -lah'
-
-#qpdf alias
-alias qpdfview='/Applications/qpdfview.app/Contents/MacOS/qpdfview'
-
-#dbus
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$DBUS_LAUNCHD_SESSION_BUS_SOCKET"
-
-export PATH="/usr/local/opt/python@3.10/bin:$PATH"
-
-# macchina
-macchina
- 
-# alias btm to htop
-alias htop='btm'
-
-#cargo binaries
-export PATH="/Users/notg00datmath/.cargo/bin:$PATH"
-
-#dutree 
-alias tree='dutree'
-
-alias pdx_stop="sudo /Users/notg00datmath/Documents/Tools/soft-ether/vpnclient/vpnclient stop"
-alias pdx_start="sudo /Users/notg00datmath/Documents/Tools/soft-ether/vpnclient/vpnclient start"
-alias pdx_connect='bash -x /Users/notg00datmath/Documents/Tools/soft-ether/config_pdx.sh'
+alias tmux="tmux -f ~/Documents/tools/rc_files/.tmux.conf"
+export ANDES_DIR=~/Documents/Work/Andes
+unsetopt append_history
+unsetopt inc_append_history
+unsetopt share_history
+export PATH=$PATH:/opt/riscv
+alias bug="scp tw12:/home/users3/ygao/bug ~/Desktop; cat ~/Desktop/bug | pbcopy -pboard general; rm ~/Desktop/bug"

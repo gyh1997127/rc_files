@@ -243,7 +243,7 @@ call plug#end()
 "colorscheme seoul256
 colorscheme gruvbox-material
 set termguicolors
-set background=dark
+set background=light
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>

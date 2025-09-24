@@ -104,4 +104,4 @@ unsetopt append_history
 unsetopt inc_append_history
 unsetopt share_history
 export PATH=$PATH:/opt/riscv
-alias bug="scp tw12:/home/users3/ygao/bug ~/Desktop; cat ~/Desktop/bug | pbcopy -pboard general; rm ~/Desktop/bug"
+alias terms="tmux attach -d"

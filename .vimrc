@@ -96,8 +96,8 @@ call plug#begin('~/.vim/plug')
 Plug 'tpope/vim-fugitive'
 
 " Jedi autocomplete
-Plug 'ervandew/supertab'
-"Plug 'ycm-core/YouCompleteMe'
+"Plug 'ervandew/supertab'
+Plug 'ycm-core/YouCompleteMe'
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
@@ -182,9 +182,6 @@ Plug 'vhda/verilog_systemverilog.vim'
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-  let g:gutentags_ctags_executable='~/tools/bin/ctags/ctags'
-  " auto generate and update tags
-  let g:tagbar_ctags_bin = "~/tools/bin/ctags/ctags"
   " tagbar toggle
   nmap <F8> :TagbarToggle<CR>
 

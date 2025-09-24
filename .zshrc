@@ -99,7 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias tmux="tmux -f ~/Documents/tools/rc_files/.tmux.conf"
 export ANDES_DIR=~/Documents/Work/Andes
 unsetopt append_history
 unsetopt inc_append_history

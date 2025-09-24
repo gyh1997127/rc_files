@@ -15,3 +15,6 @@ ln -s $SCRIPT_DIR/vimrc ~/.vim/
 
 # alacritty
 ln -s $SCRIPT_DIR/alacritty ~/.config/
+
+# zshrc
+ln -s $SCRIPT_DIR/zshrc ~/.zshrc

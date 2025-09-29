@@ -1,0 +1,34 @@
+[push]
+	default = simple
+	followTags = true
+[pull]
+	rebase = true
+[alias]
+	co = checkout
+	ci = commit
+	save = commit
+	st = status
+	br = branch
+	ls = ls-files
+	tlog = log --graph --all --format='%C(red)%h %C(white)%s %Cgreen(%cr)%C(cyan) <%an>%Creset%C(yellow)%d%Creset'
+	tkdiff = difftool --tool=tkdiff --no-prompt
+	ff = merge --ff-only
+	plrb = pull --rebase
+	amend = commit --amend
+	squash = commit --squash HEAD
+	rev = rev-parse
+	ver = rev-parse
+	continue = rebase --continue
+	logline = log --pretty=\"%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s\" --date=short
+	wta = worktree add
+	wtl = worktree list
+	wtp = worktree prune
+	stl = stash list
+
+[advice]
+        ignoredHook = false
+[user]
+	name = Yuhui Gao
+	email = ygao@andestech.com
+[pager]
+	branch = false

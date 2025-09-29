@@ -11,6 +11,7 @@ ln -s $SCRIPT_DIR/tmux ~/.config/
 
 # vimrc
 mkdir -p ~/.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ln -s $SCRIPT_DIR/vimrc ~/.vim/
 
 # alacritty
@@ -19,5 +20,5 @@ ln -s $SCRIPT_DIR/alacritty ~/.config/
 # zshrc
 ln -s $SCRIPT_DIR/zshrc ~/.zshrc
 
-# karabiner
-ln -s $SCRIPT_DIR/karabiner ~/.config/
+# git
+ln -s $SCRIPT_DIR/Git/gitconfig ~/.gitconfig

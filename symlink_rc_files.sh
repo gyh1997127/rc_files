@@ -18,3 +18,6 @@ ln -s $SCRIPT_DIR/alacritty ~/.config/
 
 # zshrc
 ln -s $SCRIPT_DIR/zshrc ~/.zshrc
+
+# karabiner
+ln -s $SCRIPT_DIR/karabiner ~/.config/

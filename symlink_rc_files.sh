@@ -7,18 +7,18 @@ echo "SCRIPT_DIR=$SCRIPT_DIR"
 mkdir -p ~/.config/
 
 # tmux
-ln -s $SCRIPT_DIR/tmux ~/.config/
+ln -nsf $SCRIPT_DIR/tmux ~/.config/
 
 # vimrc
 mkdir -p ~/.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ln -s $SCRIPT_DIR/vimrc ~/.vim/
+ln -nsf $SCRIPT_DIR/vimrc ~/.vim/
 
 # alacritty
-ln -s $SCRIPT_DIR/alacritty ~/.config/
+ln -nsf $SCRIPT_DIR/alacritty ~/.config/
 
 # zshrc
-ln -s $SCRIPT_DIR/zshrc ~/.zshrc
+ln -nsf $SCRIPT_DIR/zshrc ~/.zshrc
 
 # git
-ln -s $SCRIPT_DIR/Git/gitconfig ~/.gitconfig
+ln -nsf $SCRIPT_DIR/Git/gitconfig ~/.gitconfig

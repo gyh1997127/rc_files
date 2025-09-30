@@ -7,7 +7,7 @@ echo "SCRIPT_DIR=$SCRIPT_DIR"
 mkdir -p ~/.config/
 
 # tmux
-ln -nsf $SCRIPT_DIR/tmux ~/.config/
+ln -nsf $SCRIPT_DIR/tmux/tmux.conf ~/.tmux.conf
 
 # vimrc
 mkdir -p ~/.vim

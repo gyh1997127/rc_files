@@ -96,11 +96,16 @@ call plug#begin('~/.vim/plug')
 Plug 'tpope/vim-fugitive'
 
 " Jedi autocomplete
-"Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'
+  let g:SuperTabDefaultCompletionType = '<C-n>'
 Plug 'ycm-core/YouCompleteMe'
+  let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+  let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 Plug 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsExpandTrigger = "<tab>"
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 Plug 'gyh1997127/vim-snippets'
 
 " Markdown

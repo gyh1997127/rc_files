@@ -7,6 +7,7 @@ echo "SCRIPT_DIR=$SCRIPT_DIR"
 mkdir -p ~/.config/
 
 # tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -nsf $SCRIPT_DIR/tmux/tmux.conf ~/.tmux.conf
 
 # vimrc

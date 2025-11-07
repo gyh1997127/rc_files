@@ -99,6 +99,10 @@ Plug 'tpope/vim-fugitive'
 "Plug 'ervandew/supertab'
 Plug 'ycm-core/YouCompleteMe'
 
+Plug 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<tab>"
+Plug 'gyh1997127/vim-snippets'
+
 " Markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}

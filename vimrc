@@ -83,7 +83,6 @@ autocmd BufWinEnter *.* silent loadview
 imap jj <Esc>
 " open tag result in new vert split
 nnoremap <C-]> <C-W><C-V><C-]>
-nnoremap <C-[> <C-W><C-S><C-]>
 
 " highlight cursor line
 "set cursorline

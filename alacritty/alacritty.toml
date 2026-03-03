@@ -5,9 +5,10 @@ TERM = "xterm-256color"
 #padding.x = 10
 #padding.y = 10
 decorations = "Buttonless"
-opacity = 0.65
+opacity = 1
 blur = true
 
 [font]
-normal.family = "MesloLGS Nerd Font Mono"
-size = 13
+normal.family = "Atkinson Hyperlegible Mono"
+normal.style = "Regular"
+size = 12

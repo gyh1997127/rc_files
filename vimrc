@@ -84,12 +84,6 @@ imap jj <Esc>
 " open tag result in new vert split
 nnoremap <C-]> <C-W><C-V><C-]>
 
-" highlight cursor line
-"set cursorline
-"highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-"autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-"autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plug')
 " git
@@ -98,9 +92,6 @@ Plug 'tpope/vim-fugitive'
 " Jedi autocomplete
 Plug 'ervandew/supertab'
   let g:SuperTabDefaultCompletionType = '<C-n>'
-Plug 'ycm-core/YouCompleteMe'
-  let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-  let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
@@ -124,6 +115,22 @@ augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+" --- Custom Slang Server Registration ---
+if executable('slang-server')
+    augroup LspSlangServer
+        au!
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'slang-server',
+            \ 'cmd': {server_info->['slang-server']},
+            \ 'allowlist': ['systemverilog', 'verilog'],
+            \ 'root_uri': {server_info->lsp#utils#path_to_uri(
+            \     lsp#utils#find_nearest_parent_file_directory(
+            \         lsp#utils#get_buffer_path(),
+            \         ['.slang', '.git/']
+            \     ))},
+            \ })
+    augroup END
+endif
 
 Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger = "<tab>"
@@ -203,29 +210,11 @@ Plug 'scrooloose/nerdTree'
 Plug 'vhda/verilog_systemverilog.vim'
   let g:verilog_syntax_fold_lst = "covergroup,function,task"
 
-" fold
-"Plug 'Konfekt/FastFold'
-  "nmap <F6> <Plug>(FastFoldUpdate)
-  "let g:fastfold_savehook = 1
-  "let g:fastfold_fold_command_suffixes = []
-  "let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-  "autocmd FileType sv,svh,v setlocal foldmethod=syntax
-
 " tagbar
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
   " tagbar toggle
   nmap <F8> :TagbarToggle<CR>
-
-" latex
-Plug 'lervag/vimtex'
-  let g:tex_flavor='latex'
-  let g:vimtex_view_method = 'skim' " Choose which program to use to view PDF file
-  let g:vimtex_view_skim_sync = 1 " Value 1 allows forward search after every successful compilation
-  let g:vimtex_view_skim_activate = 1 " Value 1 allows change focus to skim after command `:VimtexView` is given
-  "let g:vimtex_view_general_viewer = 'qpdfview'
-  "let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
-  syntax enable
 
 Plug 'KeitaNakamura/tex-conceal.vim'
   set conceallevel=2
@@ -272,7 +261,7 @@ call plug#end()
 "colorscheme seoul256
 colorscheme gruvbox-material
 set termguicolors
-set background=light
+set background=dark
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>

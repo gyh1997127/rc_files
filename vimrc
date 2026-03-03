@@ -116,7 +116,8 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 " --- Custom Slang Server Registration ---
-if executable('slang-server')
+let s:slang_path = expand('~/.local/share/vim-lsp-settings/servers/slang-server')
+if executable(s:slang_path)
     augroup LspSlangServer
         au!
         autocmd User lsp_setup call lsp#register_server({

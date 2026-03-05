@@ -115,20 +115,25 @@ augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-" --- Custom Slang Server Registration ---
 let s:slang_path = expand('~/.local/share/vim-lsp-settings/servers/slang-server')
+function! s:get_slang_root(buffer_path) abort
+    let l:root = lsp#utils#find_nearest_parent_file_directory(a:buffer_path, ['.slang', '.git/'])
+    
+    " If no .slang or .git is found, use the file's current directory
+    if empty(l:root)
+        let l:root = fnamemodify(a:buffer_path, ':p:h')
+    endif
+    
+    return lsp#utils#path_to_uri(l:root)
+endfunction
 if executable(s:slang_path)
     augroup LspSlangServer
         au!
         autocmd User lsp_setup call lsp#register_server({
             \ 'name': 'slang-server',
-            \ 'cmd': {server_info->['slang-server']},
-            \ 'allowlist': ['verilog_systemverilog'],
-            \ 'root_uri': {server_info->lsp#utils#path_to_uri(
-            \     lsp#utils#find_nearest_parent_file_directory(
-            \         lsp#utils#get_buffer_path(),
-            \         ['.slang', '.git/']
-            \     ))},
+            \ 'cmd': {server_info->[s:slang_path]},
+            \ 'allowlist': ['systemverilog', 'verilog', 'verilog_systemverilog'],
+            \ 'root_uri': {server_info->s:get_slang_root(lsp#utils#get_buffer_path())},
             \ })
     augroup END
 endif

@@ -105,10 +105,10 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> K <plug>(lsp-hover)
+    nmap <buffer> Gd <plug>(lsp-definition)
+    nmap <buffer> Gr <plug>(lsp-references)
+    nmap <buffer> Gi <plug>(lsp-implementation)
+    nmap <buffer> Gh <plug>(lsp-hover)
     nmap <buffer> <F2> <plug>(lsp-rename)
 endfunction
 augroup lsp_install

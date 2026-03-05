@@ -132,8 +132,7 @@ if executable(s:slang_path)
         autocmd User lsp_setup call lsp#register_server({
             \ 'name': 'slang-server',
             \ 'cmd': {server_info->[s:slang_path]},
-            \ 'allowlist': ['systemverilog', 'verilog', 'verilog_systemverilog'],
-            \ 'languageId': {server_info->'systemverilog'},
+            \ 'allowlist': ['systemverilog', 'verilog'],
             \ 'root_uri': {server_info->s:get_slang_root(lsp#utils#get_buffer_path())},
             \ })
     augroup END

@@ -133,6 +133,7 @@ if executable(s:slang_path)
             \ 'name': 'slang-server',
             \ 'cmd': {server_info->[s:slang_path]},
             \ 'allowlist': ['systemverilog', 'verilog', 'verilog_systemverilog'],
+            \ 'languageId': {server_info->'systemverilog'},
             \ 'root_uri': {server_info->s:get_slang_root(lsp#utils#get_buffer_path())},
             \ })
     augroup END

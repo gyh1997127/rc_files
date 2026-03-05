@@ -117,7 +117,7 @@ augroup lsp_install
 augroup END
 let s:slang_path = expand('~/.local/share/vim-lsp-settings/servers/slang-server')
 function! s:get_slang_root(buffer_path) abort
-    let l:root = lsp#utils#find_nearest_parent_file_directory(a:buffer_path, ['.slang'])
+    let l:root = lsp#utils#find_nearest_parent_file_directory(a:buffer_path, ['slang.jon'])
     
     " If no .slang or .git is found, use the file's current directory
     if empty(l:root)

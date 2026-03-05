@@ -98,6 +98,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+au BufRead,BufNewFile *.sv,*.svh set filetype=systemverilog
 " --- LSP Key Mappings ---
 " Only map keys if the language server supports the feature
 function! s:on_lsp_buffer_enabled() abort

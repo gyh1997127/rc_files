@@ -106,56 +106,12 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-
-    "nmap <buffer> Gd <plug>(lsp-definition)
-    "nmap <buffer> Gr <plug>(lsp-references)
-    "nmap <buffer> Gi <plug>(lsp-implementation)
-    "nmap <buffer> Gh <plug>(lsp-hover)
-    "nmap <buffer> <F2> <plug>(lsp-rename)
+    nmap <buffer> K <plug>(lsp-hover)
 endfunction
-"augroup lsp_install
-    "au!
-    "autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-"augroup END
-"let s:slang_path = expand('~/slang-server')
-"function! s:get_slang_paths(buffer_path) abort
-    "let l:buf_dir = fnamemodify(a:buffer_path, ':p:h')
-    "let l:config_dir = lsp#utils#find_nearest_parent_file_directory(l:buf_dir, '.slang/server.json')
-    "if empty(l:config_dir)
-        "return ['', '']
-    "endif
-    "" config_dir = directory containing server.json (i.e. .slang/)
-    "" project root = parent of .slang
-    "let l:root = fnamemodify(l:config_dir, ':h')
-    "let l:config = l:config_dir . '/server.json'
-    "return [l:root, l:config]
-"endfunction
-"if executable(s:slang_path)
-    "augroup LspSlangServer
-        "au!
-        "autocmd User lsp_setup call lsp#register_server({
-            "\ 'name': 'slang-server',
-            "\ 'cmd': {server_info->s:slang_cmd(lsp#utils#get_buffer_path())},
-            "\ 'allowlist': ['systemverilog', 'verilog'],
-            "\ 'root_uri': {server_info->s:slang_root_uri(lsp#utils#get_buffer_path())},
-            "\ })
-    "augroup END
-"endif
-"function! s:slang_cmd(buffer_path) abort
-    "let l:paths = s:get_slang_paths(a:buffer_path)
-    "let l:config = l:paths[1]
-    "if empty(l:config)
-        "return [s:slang_path]
-    "endif
-    "return [s:slang_path, '--config', l:config]
-"endfunction
-"function! s:slang_root_uri(buffer_path) abort
-    "let l:root = s:get_slang_paths(a:buffer_path)[0]
-    "if empty(l:root)
-        "return lsp#utils#get_default_root_uri()
-    "endif
-    "return lsp#utils#path_to_uri(l:root)
-"endfunction
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger = "<tab>"

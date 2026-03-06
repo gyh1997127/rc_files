@@ -99,8 +99,6 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 let g:lsp_diagnostics_enabled = 0
-nmap <C-k> <plug>(lsp-scroll-float-down)
-nmap <C-j> <plug>(lsp-scroll-float-up)
 "let g:lsp_log_file = expand('~/vim-lsp.log')
 "let g:lsp_log_verbose = 1  " 1 = debug, 0 = errors only
 " --- LSP Key Mappings ---
@@ -110,6 +108,8 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-j> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-k> lsp#scroll(-4)
 endfunction
 augroup lsp_install
     au!

@@ -99,6 +99,8 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 let g:lsp_diagnostics_enabled = 0
+nmap <C-k> <plug>(lsp-scroll-float-down)
+nmap <C-j> <plug>(lsp-scroll-float-up)
 "let g:lsp_log_file = expand('~/vim-lsp.log')
 "let g:lsp_log_verbose = 1  " 1 = debug, 0 = errors only
 " --- LSP Key Mappings ---

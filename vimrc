@@ -107,9 +107,9 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> K <plug>(lsp-hover)
-    nnoremap <buffer> <expr><c-j> lsp#scroll(+4)
-    nnoremap <buffer> <expr><c-k> lsp#scroll(-4)
+    nmap <buffer> gh <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
 endfunction
 augroup lsp_install
     au!

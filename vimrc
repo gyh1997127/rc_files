@@ -116,6 +116,8 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+Plug 'ervandew/supertab'
+  let g:SuperTabDefaultCompletionType = '<C-n>'
 Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger = "<tab>"
   let g:UltiSnipsJumpForwardTrigger = "<tab>"

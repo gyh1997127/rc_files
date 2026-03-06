@@ -23,3 +23,20 @@ ln -nsf $SCRIPT_DIR/zshrc ~/.zshrc
 
 # git
 ln -nsf $SCRIPT_DIR/Git/gitconfig ~/.gitconfig
+
+# install ctags
+git clone https://github.com/universal-ctags/ctags.git
+cd ctags
+./autogen.sh
+./configure --prefix=$SCRIPT_DIR/ctags_build
+make
+make install
+ln -nsf $SCRIPT_DIR/ctags_build/bin/ctags ~/ctags
+
+#install slang-server and symlink
+#git clone https://github.com/hudson-trading/slang-server.git
+#cd slang-server
+#git submodule update --init --recursive
+#cmake -B build -DCMAKE_BUILD_TYPE=Release
+#cmake --build build -j --target slang_server
+#ln -nsf $SCRIPT_DIR/slang_server ~/slang_server

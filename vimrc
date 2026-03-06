@@ -98,8 +98,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-let g:lsp_log_file = expand('~/vim-lsp.log')
-let g:lsp_log_verbose = 1  " 1 = debug, 0 = errors only
+let g:lsp_diagnostics_enabled = 0
+"let g:lsp_log_file = expand('~/vim-lsp.log')
+"let g:lsp_log_verbose = 1  " 1 = debug, 0 = errors only
 " --- LSP Key Mappings ---
 " Only map keys if the language server supports the feature
 function! s:on_lsp_buffer_enabled() abort

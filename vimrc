@@ -91,7 +91,9 @@ Plug 'tpope/vim-fugitive'
 
 " Jedi autocomplete
 Plug 'ervandew/supertab'
-  let g:SuperTabDefaultCompletionType = '<C-n>'
+  let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+  set completeopt=menuone,noinsert,noselect
+
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'

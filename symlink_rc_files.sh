@@ -39,6 +39,39 @@ mkdir -p $LOCAL_BIN_DIR
 
 # install treesitter
 cargo install tree-sitter-cli --root ~/.local
+#cd "$SCRIPT_DIR"
+#TREE_SITTER_VERSION="v0.26.6"
+
+#UNAME_S=$(uname -s)
+#if [[ "$UNAME_S" == "Darwin" ]]; then
+  #OS_NAME="macos"
+#elif [[ "$UNAME_S" == "Linux" ]]; then
+  #OS_NAME="linux"
+#else
+  #echo "Unsupported OS: $UNAME_S"
+  #exit 1
+#fi
+
+#UNAME_M=$(uname -m)
+#if [[ "$UNAME_M" == "x86_64" ]]; then
+  #ARCH_NAME="x64"
+#elif [[ "$UNAME_M" == "arm64" || "$UNAME_M" == "aarch64" ]]; then
+  #ARCH_NAME="arm64"
+#else
+  #echo "Unsupported architecture: $UNAME_M"
+  #exit 1
+#fi
+
+#ASSET_NAME="tree-sitter-${OS_NAME}-${ARCH_NAME}.gz"
+#TS_DIR="$SCRIPT_DIR/tree-sitter-cli"
+#mkdir -p "$TS_DIR"
+#cd "$TS_DIR"
+
+#echo "Downloading tree-sitter-cli $TREE_SITTER_VERSION for $OS_NAME-$ARCH_NAME..."
+#curl -LO "https://github.com/tree-sitter/tree-sitter/releases/download/${TREE_SITTER_VERSION}/${ASSET_NAME}"
+#gunzip -c "$ASSET_NAME" > tree-sitter
+#chmod +x tree-sitter
+#ln -nsf "$TS_DIR/tree-sitter" "$LOCAL_BIN_DIR/tree-sitter"
 
 # install ctags
 cd "$SCRIPT_DIR"
@@ -58,41 +91,6 @@ cd neovim
 make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PWD/neovim_build"
 make install
 ln -nsf $PWD/neovim_build/bin/nvim $LOCAL_BIN_DIR/nvim
-
-# install tree-sitter-cli
-cd "$SCRIPT_DIR"
-TREE_SITTER_VERSION="v0.26.6"
-
-UNAME_S=$(uname -s)
-if [[ "$UNAME_S" == "Darwin" ]]; then
-  OS_NAME="macos"
-elif [[ "$UNAME_S" == "Linux" ]]; then
-  OS_NAME="linux"
-else
-  echo "Unsupported OS: $UNAME_S"
-  exit 1
-fi
-
-UNAME_M=$(uname -m)
-if [[ "$UNAME_M" == "x86_64" ]]; then
-  ARCH_NAME="x64"
-elif [[ "$UNAME_M" == "arm64" || "$UNAME_M" == "aarch64" ]]; then
-  ARCH_NAME="arm64"
-else
-  echo "Unsupported architecture: $UNAME_M"
-  exit 1
-fi
-
-ASSET_NAME="tree-sitter-${OS_NAME}-${ARCH_NAME}.gz"
-TS_DIR="$SCRIPT_DIR/tree-sitter-cli"
-mkdir -p "$TS_DIR"
-cd "$TS_DIR"
-
-echo "Downloading tree-sitter-cli $TREE_SITTER_VERSION for $OS_NAME-$ARCH_NAME..."
-curl -LO "https://github.com/tree-sitter/tree-sitter/releases/download/${TREE_SITTER_VERSION}/${ASSET_NAME}"
-gunzip -c "$ASSET_NAME" > tree-sitter
-chmod +x tree-sitter
-ln -nsf "$TS_DIR/tree-sitter" "$LOCAL_BIN_DIR/tree-sitter"
 
 # install slang-server
 cd "$SCRIPT_DIR"

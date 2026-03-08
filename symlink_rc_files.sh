@@ -30,12 +30,19 @@ ln -nsf $SCRIPT_DIR/Git/gitconfig ~/.gitconfig
 # generate .slang
 ln -nsf $SCRIPT_DIR/generate_slang_config.py ~/generate_slang_config.py
 
+#install cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+
 # install binaries
 LOCAL_BIN_DIR=$HOME/.local/bin
 mkdir -p $LOCAL_BIN_DIR
 
+# install treesitter
+cargo install tree-sitter-cli --root ~/.local
+
 # install ctags
 cd "$SCRIPT_DIR"
+echo "Building ctags"
 git clone https://github.com/universal-ctags/ctags.git
 cd ctags
 ./autogen.sh
@@ -45,12 +52,12 @@ make install
 ln -nsf $SCRIPT_DIR/ctags_build/bin/ctags $LOCAL_BIN_DIR/tags
 
 # install neovim
-#cd "$SCRIPT_DIR"
-#git clone https://github.com/neovim/neovim
-#cd neovim
-#make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PWD/neovim_build"
-#make install
-#ln -nsf $PWD/neovim_build/bin/nvim $LOCAL_BIN_DIR/nvim
+cd "$SCRIPT_DIR"
+git clone https://github.com/neovim/neovim
+cd neovim
+make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PWD/neovim_build"
+make install
+ln -nsf $PWD/neovim_build/bin/nvim $LOCAL_BIN_DIR/nvim
 
 # install tree-sitter-cli
 cd "$SCRIPT_DIR"

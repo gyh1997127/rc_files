@@ -103,6 +103,6 @@ export ANDES_DIR=~/Documents/Work/Andes
 unsetopt append_history
 unsetopt inc_append_history
 unsetopt share_history
-export PATH=$PATH:/opt/riscv
+export PATH=$PATH:/opt/riscv:~/.local/bin
 alias terms="tmux attach -d"
 alias clockin="ssh -t en2 'terms; bash -l'"

@@ -51,7 +51,7 @@ download_gh_release() {
 
     mkdir -p "$target_dir"
     cd "$target_dir"
-    echo "Downloading $bin_name $version..."
+    echo "Downloading $bin_name $version... (https://github.com/$repo/releases/download/$version/$asset)"
     curl -LO "https://github.com/$repo/releases/download/$version/$asset"
     
     if [[ "$asset" == *.tar.gz ]]; then
@@ -100,29 +100,6 @@ if ! command -v tree-sitter &> /dev/null; then
     cargo install tree-sitter-cli --root ~/.local
 fi
 
-# Universal Ctags
-CTAGS_VERSION="2026.03.05" # Nightly date
-if [[ "$UNAME_S" == "Darwin" ]]; then
-    # Note: the nightly build name might vary slightly; adjusting based on typical patterns
-    CTAGS_ASSET="uctags-${CTAGS_VERSION}-macos-11.0-$( [[ "$UNAME_M" == "arm64" ]] && echo "arm64" || echo "x86_64" ).release.tar.xz"
-elif [[ "$UNAME_S" == "Linux" && "$UNAME_M" == "x86_64" ]]; then
-    CTAGS_ASSET="uctags-${CTAGS_VERSION}-linux-x86_64.release.tar.xz"
-fi
-
-if [ -n "$CTAGS_ASSET" ]; then
-    # The binary is usually in bin/ctags inside the archive
-    # We download it to ctags/ and link bin/ctags to tags
-    mkdir -p "$SCRIPT_DIR/ctags"
-    cd "$SCRIPT_DIR/ctags"
-    if [ ! -f "$LOCAL_BIN_DIR/tags" ]; then
-        echo "Downloading Universal Ctags $CTAGS_VERSION..."
-        curl -LO "https://github.com/universal-ctags/ctags-nightly-build/releases/download/${CTAGS_VERSION}/${CTAGS_ASSET}"
-        tar -xvf "$CTAGS_ASSET" --strip-components=1
-        chmod +x bin/ctags
-        safe_ln "$SCRIPT_DIR/ctags/bin/ctags" "$LOCAL_BIN_DIR/tags"
-    fi
-fi
-
 # Neovim (build from source)
 if [ ! -f "$LOCAL_BIN_DIR/nvim" ]; then
     NVIM_DIR="$SCRIPT_DIR/neovim"
@@ -165,18 +142,29 @@ fi
 CTAGS_LSP_VERSION="v0.11.0"
 if [[ "$UNAME_S" == "Darwin" ]]; then
     if [[ "$UNAME_M" == "arm64" ]]; then
-        CTAGS_LSP_ASSET="ctags-lsp-${CTAGS_LSP_VERSION}-aarch64-apple-darwin.tar.gz"
+        CTAGS_LSP_ASSET="ctags-lsp_Darwin_arm64.tar.gz"
     else
-        CTAGS_LSP_ASSET="ctags-lsp-${CTAGS_LSP_VERSION}-x86_64-apple-darwin.tar.gz"
+        CTAGS_LSP_ASSET="ctags-lsp_Darwin_x86_64.tar.gz"
     fi
 elif [[ "$UNAME_S" == "Linux" && "$UNAME_M" == "x86_64" ]]; then
-    CTAGS_LSP_ASSET="ctags-lsp-${CTAGS_LSP_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    CTAGS_LSP_ASSET="ctags-lsp_Linux_x86_64.tar.gz"
 fi
 
 if [ -n "$CTAGS_LSP_ASSET" ]; then
-    # We use 0 as strip-components because we expect the binary inside the archive or it's small enough.
-    # Looking at the names, they seem to be flat or have a predictable structure.
     download_gh_release "netmute/ctags-lsp" "$CTAGS_LSP_VERSION" "$CTAGS_LSP_ASSET" "$SCRIPT_DIR/ctags-lsp" "ctags-lsp" 0
+fi
+
+# Universal Ctags
+if [ ! -f "$LOCAL_BIN_DIR/ctags" ]; then
+    CTAGS_DIR="$SCRIPT_DIR/ctags"
+    clone_or_update "https://github.com/universal-ctags/ctags.git" "$CTAGS_DIR"
+    cd "$CTAGS_DIR"
+    ./autogen.sh
+    ./configure --prefix="$SCRIPT_DIR/ctags_build"
+    make -j$(nproc 2>/dev/null || echo 4)
+    make install
+    safe_ln "$SCRIPT_DIR/ctags_build/bin/ctags" "$LOCAL_BIN_DIR/ctags"
+    safe_ln "$SCRIPT_DIR/ctags_build/bin/ctags" "$LOCAL_BIN_DIR/tags"
 fi
 
 echo "All tasks completed successfully!"

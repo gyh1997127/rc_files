@@ -24,7 +24,7 @@ return {
         desc = 'LSP actions',
         callback = function(event)
           local opts = { buffer = event.buf, remap = false }
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
           vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)

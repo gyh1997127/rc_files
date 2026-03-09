@@ -39,7 +39,6 @@ return {
 
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "verible",     -- SystemVerilog
           "clangd",      -- C++
           "pylsp" ,      -- Python
           "lua_ls",      -- Lua

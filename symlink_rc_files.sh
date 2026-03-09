@@ -150,4 +150,22 @@ if [ -n "$RG_ASSET" ]; then
     download_gh_release "BurntSushi/ripgrep" "$RG_VERSION" "$RG_ASSET" "$SCRIPT_DIR/ripgrep" "rg" 1
 fi
 
+# Ctags LSP
+CTAGS_LSP_VERSION="v0.11.0"
+if [[ "$UNAME_S" == "Darwin" ]]; then
+    if [[ "$UNAME_M" == "arm64" ]]; then
+        CTAGS_LSP_ASSET="ctags-lsp-${CTAGS_LSP_VERSION}-aarch64-apple-darwin.tar.gz"
+    else
+        CTAGS_LSP_ASSET="ctags-lsp-${CTAGS_LSP_VERSION}-x86_64-apple-darwin.tar.gz"
+    fi
+elif [[ "$UNAME_S" == "Linux" && "$UNAME_M" == "x86_64" ]]; then
+    CTAGS_LSP_ASSET="ctags-lsp-${CTAGS_LSP_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+fi
+
+if [ -n "$CTAGS_LSP_ASSET" ]; then
+    # We use 0 as strip-components because we expect the binary inside the archive or it's small enough.
+    # Looking at the names, they seem to be flat or have a predictable structure.
+    download_gh_release "netmute/ctags-lsp" "$CTAGS_LSP_VERSION" "$CTAGS_LSP_ASSET" "$SCRIPT_DIR/ctags-lsp" "ctags-lsp" 0
+fi
+
 echo "All tasks completed successfully!"

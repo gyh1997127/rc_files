@@ -22,6 +22,7 @@ spec("treesitter")
 spec("slang-server")
 spec("lsp")
 spec("cmp")
+spec("gutentags")
 
 -- 5. Bootstrap and load plugins
 require("plugin.lazy")

@@ -89,12 +89,6 @@ call plug#begin('~/.vim/plug')
 " git
 Plug 'tpope/vim-fugitive'
 
-" Jedi autocomplete
-Plug 'ervandew/supertab'
-  let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-  set completeopt=menuone,noinsert,noselect
-
-
 " LSP
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'

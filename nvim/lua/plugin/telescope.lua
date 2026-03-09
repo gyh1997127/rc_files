@@ -14,13 +14,15 @@ return {
         },
         pickers = {
           live_grep = {
-            file_ignore_patterns = { 'node_modules', '.git', '.venv', 'tag' },
+            file_ignore_patterns = { 'node_modules', '.venv', 'tag' },
+            no_ignore = true,
             additional_args = function(_)
               return { "--hidden" }
             end
           },
           find_files = {
-            file_ignore_patterns = { 'node_modules', '.git', '.venv', 'tag' },
+            file_ignore_patterns = { 'node_modules', '.venv', 'tag' },
+            no_ignore = true,
             hidden = true
           }
         },

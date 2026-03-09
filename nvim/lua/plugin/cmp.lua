@@ -51,7 +51,6 @@ return {
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
-          { name = 'tags' },
         },
       })
     end,

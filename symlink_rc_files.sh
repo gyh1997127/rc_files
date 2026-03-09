@@ -101,15 +101,26 @@ if ! command -v tree-sitter &> /dev/null; then
 fi
 
 # Universal Ctags
-if [ ! -f "$LOCAL_BIN_DIR/tags" ]; then
-    CTAGS_DIR="$SCRIPT_DIR/ctags"
-    clone_or_update "https://github.com/universal-ctags/ctags.git" "$CTAGS_DIR"
-    cd "$CTAGS_DIR"
-    ./autogen.sh
-    ./configure --prefix="$SCRIPT_DIR/ctags_build"
-    make -j$(nproc 2>/dev/null || echo 4)
-    make install
-    safe_ln "$SCRIPT_DIR/ctags_build/bin/ctags" "$LOCAL_BIN_DIR/tags"
+CTAGS_VERSION="2026.03.05" # Nightly date
+if [[ "$UNAME_S" == "Darwin" ]]; then
+    # Note: the nightly build name might vary slightly; adjusting based on typical patterns
+    CTAGS_ASSET="uctags-${CTAGS_VERSION}-macos-11.0-$( [[ "$UNAME_M" == "arm64" ]] && echo "arm64" || echo "x86_64" ).release.tar.xz"
+elif [[ "$UNAME_S" == "Linux" && "$UNAME_M" == "x86_64" ]]; then
+    CTAGS_ASSET="uctags-${CTAGS_VERSION}-linux-x86_64.release.tar.xz"
+fi
+
+if [ -n "$CTAGS_ASSET" ]; then
+    # The binary is usually in bin/ctags inside the archive
+    # We download it to ctags/ and link bin/ctags to tags
+    mkdir -p "$SCRIPT_DIR/ctags"
+    cd "$SCRIPT_DIR/ctags"
+    if [ ! -f "$LOCAL_BIN_DIR/tags" ]; then
+        echo "Downloading Universal Ctags $CTAGS_VERSION..."
+        curl -LO "https://github.com/universal-ctags/ctags-nightly-build/releases/download/${CTAGS_VERSION}/${CTAGS_ASSET}"
+        tar -xvf "$CTAGS_ASSET" --strip-components=1
+        chmod +x bin/ctags
+        safe_ln "$SCRIPT_DIR/ctags/bin/ctags" "$LOCAL_BIN_DIR/tags"
+    fi
 fi
 
 # Neovim (build from source)

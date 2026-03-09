@@ -39,6 +39,7 @@ return {
 
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "verible",     -- SystemVerilog
           "clangd",      -- C++
           "pylsp" ,      -- Python
           "lua_ls",      -- Lua
@@ -63,19 +64,6 @@ return {
           end,
         },
       })
-
-      -- Modern Nvim 0.11+ configuration for slang-server
-      vim.lsp.config("slang-server", {
-        cmd = { vim.fn.expand("~/.local/bin/slang-server") },
-        root_markers = { ".git", ".slang" },
-        filetypes = {
-          "systemverilog",
-          "verilog",
-        },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.enable("slang-server")
     end,
   },
 }

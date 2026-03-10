@@ -105,5 +105,7 @@ unsetopt inc_append_history
 unsetopt share_history
 export PATH=$PATH:/opt/riscv:~/.local/bin
 export PATH=$PATH:~/.cargo/bin
+alias ctags="`brew --prefix`/bin/ctags"
 alias terms="tmux attach -d"
 alias clockin="ssh -t en2 'terms; bash -l'"
+alias zshrc="source ~/.zshrc"

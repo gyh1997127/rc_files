@@ -10,13 +10,14 @@ return {
         "c",
         "cpp",
         "python",
-        "lua"
+        "lua",
+        "verilog",
+        "systemverilog"
       },
       auto_install = true,
       highlight = {
         enable = true,
-        disable = { "verilog", "systemverilog" },
-        additional_vim_regex_highlighting = false,
+        additional_vim_regex_highlighting = { "verilog", "systemverilog" },
       },
     })
     require('nvim-treesitter').install({ 'cpp', 'python', 'systemverilog', 'lua' })

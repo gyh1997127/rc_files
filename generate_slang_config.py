@@ -16,7 +16,7 @@ def generate_slang_config(search_root):
     uvm_home = os.environ.get("UVM_HOME")
     if uvm_home:
         print(f"  UVM_HOME found: {uvm_home}")
-        uvm_src = os.path.join(uvm_home, "src/*")
+        uvm_src = os.path.join(uvm_home, "src/\*")
         uvm_pkg = os.path.join(uvm_src, "uvm_pkg.sv")
         if os.path.exists(uvm_src):
             flags.append(f"-I {uvm_src}")

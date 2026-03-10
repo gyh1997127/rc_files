@@ -11,20 +11,27 @@ def generate_slang_config(search_root):
 
     # Build flags string
     flags = ["--single-unit"]
-    
+
+    print("Environment variable check:")
     uvm_home = os.environ.get("UVM_HOME")
     if uvm_home:
-        uvm_src = os.path.join(uvm_home, "src/*")
+        print(f"  UVM_HOME found: {uvm_home}")
+        uvm_src = os.path.join(uvm_home, "src")
         uvm_pkg = os.path.join(uvm_src, "uvm_pkg.sv")
         if os.path.exists(uvm_src):
             flags.append(f"-I {uvm_src}")
         if os.path.exists(uvm_pkg):
             flags.append(uvm_pkg)
+    else:
+        print("  UVM_HOME not set.")
 
     denali_home = os.environ.get("DENALI")
     if denali_home:
+        print(f"  DENALI found: {denali_home}")
         flags.append(f"-I {denali_home}/ddvapi/sv/uvm/cdn_axi")
         flags.append(f"-I {denali_home}/ddvapi/sv")
+    else:
+        print("  DENALI not set.")
 
     config = {
         "flags": " ".join(flags)

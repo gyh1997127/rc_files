@@ -1,5 +1,9 @@
 local opt = vim.opt
 
+-- General
+vim.cmd("syntax on")
+vim.cmd("filetype plugin indent on")
+
 -- Appearance
 opt.number = true              -- Show line numbers
 opt.relativenumber = false     -- Absolute numbers (as per your vimrc)

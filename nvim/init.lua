@@ -23,6 +23,7 @@ spec("slang-server")
 spec("lsp")
 spec("cmp")
 spec("gutentags")
+spec("verilog")
 
 -- 5. Bootstrap and load plugins
 require("plugin.lazy")

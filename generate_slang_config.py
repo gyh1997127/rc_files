@@ -36,7 +36,7 @@ def generate_slang_config(search_root):
         json.dump(config, f, indent=2)
 
     print(f"Successfully generated {config_path}")
-    print(f"Indexed directories: {index_dirs}")
+    print(f"Flags: {' '.join(flags)}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate slang-server.json from source files")

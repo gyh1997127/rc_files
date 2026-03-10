@@ -15,6 +15,7 @@ return {
       auto_install = true,
       highlight = {
         enable = true,
+        disable = { "verilog", "systemverilog" },
         additional_vim_regex_highlighting = false,
       },
     })

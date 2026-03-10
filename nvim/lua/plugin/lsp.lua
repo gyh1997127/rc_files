@@ -76,16 +76,6 @@ return {
         --},
       --})
       --vim.lsp.enable("slang-server")
-
-      -- Modern Nvim 0.11+ configuration for ctags-lsp
-      vim.lsp.config("ctags_lsp", {
-        cmd = { vim.fn.expand("~/.local/bin/ctags-lsp") },
-        -- Attach to languages that may benefit from ctags fallback
-        filetypes = { "systemverilog", "verilog" },
-        root_markers = { ".git", "tags" },
-        capabilities = capabilities,
-      })
-      vim.lsp.enable("ctags_lsp")
     end,
   },
 }

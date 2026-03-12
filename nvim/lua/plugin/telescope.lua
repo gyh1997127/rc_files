@@ -1,6 +1,16 @@
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
+  cmd = "Telescope",
+  keys = {
+    { '<leader>ff', '<cmd>Telescope find_files<CR>', desc = "Find Files" },
+    { '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = "Grep Search" },
+    { '<leader>fb', '<cmd>Telescope buffers<CR>', desc = "List Buffers" },
+    { '<leader>fh', '<cmd>Telescope help_tags<CR>', desc = "Help Tags" },
+    { '<leader>fs', '<cmd>Telescope lsp_document_symbols<CR>', desc = "Find Symbols in File" },
+    { '<leader>fw', '<cmd>Telescope grep_string<CR>', desc = "Search Word under Cursor" },
+    { '<leader>fc', '<cmd>Telescope git_commits<CR>', desc = "Search File Git History" },
+  },
   config = function()
     require('telescope').setup({
         defaults = {
@@ -27,14 +37,5 @@ return {
           }
         },
       })
-    local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find Files" })
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Grep Search" })
-    vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = "List Buffers" })
-    vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "Help Tags" })
-    vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = "Find Symbols in File" })
-    vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = "Search Word under Cursor" })
-    vim.keymap.set('n', '<leader>fc', builtin.git_commits, { desc = "Search File Git History" })
   end
 }
-

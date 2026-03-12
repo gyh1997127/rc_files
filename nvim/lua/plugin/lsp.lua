@@ -9,11 +9,11 @@ return {
     config = function()
       require("mason").setup()
 
-      -- Turn off diagnostics globally
+      -- Minimal-noise diagnostics
       vim.diagnostic.config({
         virtual_text = false,
-        signs = false,
-        underline = false,
+        signs = true,
+        underline = true,
         update_in_insert = false,
       })
 

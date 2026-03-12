@@ -1,10 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  branch = "main",
   lazy = false,
   build = ":TSUpdate",
   config = function()
-    local configs = require("nvim-treesitter.config")
+    local configs = require("nvim-treesitter.configs")
     configs.setup({
       ensure_installed = {
         "c",
@@ -12,14 +11,15 @@ return {
         "python",
         "lua",
         "verilog",
-        "systemverilog"
       },
       auto_install = true,
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { "verilog", "systemverilog" },
+        additional_vim_regex_highlighting = { "verilog", "verilog_systemverilog" },
       },
     })
-    require('nvim-treesitter').install({ 'cpp', 'python', 'systemverilog', 'lua' })
+    if vim.treesitter.language and vim.treesitter.language.register then
+      vim.treesitter.language.register("verilog", "verilog_systemverilog")
+    end
   end,
 }

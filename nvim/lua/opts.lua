@@ -33,6 +33,7 @@ opt.swapfile = false           -- 'noswapfile'
 opt.backup = false             -- 'nobackup'
 opt.mouse = "a"                -- Enable mouse support
 opt.scrolloff = 8              -- Keep lines visible when scrolling
+opt.tags = { "./tags;", "tags" } -- Search local and parent tags files
 
 -- Fold settings
 opt.foldnestmax = 3

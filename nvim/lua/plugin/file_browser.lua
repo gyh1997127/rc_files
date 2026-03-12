@@ -1,6 +1,7 @@
 return {
   "preservim/nerdtree",
-  config = function()
-    vim.keymap.set("n", "<leader>b", "::NERDTreeToggle<CR>", { desc = "Toggle File Browser" })
-  end
+  cmd = { "NERDTreeToggle", "NERDTreeFind" },
+  keys = {
+    { "<leader>b", "<cmd>NERDTreeToggle<CR>", desc = "Toggle File Browser" },
+  },
 }

@@ -5,6 +5,7 @@ return {
 
     local ctags_bin = vim.fn.exepath("ctags")
     vim.g.gutentags_ctags_executable = (ctags_bin ~= "" and ctags_bin) or "ctags"
+    vim.g.gutentags_ctags_extra_args = { "--extras=+q" }
 
     -- Keep tags file in project root (old Vim workflow).
     vim.g.gutentags_cache_dir = ""

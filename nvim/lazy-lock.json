@@ -20,6 +20,7 @@
   "slang-server.nvim": { "branch": "main", "commit": "9cd4e7eab99c966894428a55a4ca34608d7acadc" },
   "tabular": { "branch": "master", "commit": "12437cd1b53488e24936ec4b091c9324cafee311" },
   "telescope.nvim": { "branch": "master", "commit": "5255aa27c422de944791318024167ad5d40aad20" },
+  "verilog_systemverilog.vim": { "branch": "master", "commit": "5d1ea7c50a66a2f6c6002214344b16de02996ecc" },
   "vim-fugitive": { "branch": "master", "commit": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0" },
   "vim-gutentags": { "branch": "master", "commit": "aa47c5e29c37c52176c44e61c780032dfacef3dd" }
 }

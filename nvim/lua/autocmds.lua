@@ -13,6 +13,17 @@ vim.filetype.add({
   },
 })
 
+api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+  end,
+  desc = "Use 2-space indentation in all buffers",
+})
+
 -- Disabled by default to avoid unexpected background jobs on every save.
 -- Set `vim.g.enable_slang_autogen = 1` before loading this module to enable it.
 if vim.g.enable_slang_autogen == 1 then

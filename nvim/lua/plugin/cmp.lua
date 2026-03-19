@@ -13,6 +13,7 @@ return {
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
+      cmp.register_source("tags", require("cmp_tags").new())
 
       require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -62,6 +63,7 @@ return {
 
       cmp.setup.filetype("verilog_systemverilog", {
         sources = cmp.config.sources({
+          { name = "tags" },
           {
             name = "omni",
             option = {

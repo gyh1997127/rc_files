@@ -1,5 +1,18 @@
 local api = vim.api
 
+-- Register HDL filetypes early so any later plugin sees the expected ft.
+vim.filetype.add({
+  extension = {
+    sv = "verilog_systemverilog",
+    svh = "verilog_systemverilog",
+    sva = "verilog_systemverilog",
+    svi = "verilog_systemverilog",
+    svp = "verilog_systemverilog",
+    v = "verilog_systemverilog",
+    vh = "verilog_systemverilog",
+  },
+})
+
 -- Disabled by default to avoid unexpected background jobs on every save.
 -- Set `vim.g.enable_slang_autogen = 1` before loading this module to enable it.
 if vim.g.enable_slang_autogen == 1 then

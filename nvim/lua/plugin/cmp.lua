@@ -3,6 +3,7 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-omni",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "L3MON4D3/LuaSnip",
@@ -57,6 +58,21 @@ return {
           { name = "buffer" },
           { name = "path" },
         },
+      })
+
+      cmp.setup.filetype("verilog_systemverilog", {
+        sources = cmp.config.sources({
+          {
+            name = "omni",
+            option = {
+              disable_omnifuncs = { "v:lua.vim.lsp.omnifunc" },
+            },
+          },
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
       })
     end,
   },

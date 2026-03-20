@@ -66,16 +66,6 @@ return {
         },
       })
 
-      -- Modern Nvim 0.11+ configuration for slang-server
-      --vim.lsp.config("slang-server", {
-        --cmd = { "slang-server" },
-        --root_markers = { ".git", ".slang" },
-        --filetypes = {
-          --"systemverilog",
-          --"verilog",
-        --},
-      --})
-      --vim.lsp.enable("slang-server")
     end,
   },
 }

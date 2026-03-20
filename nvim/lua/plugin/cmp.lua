@@ -3,7 +3,6 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-omni",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "L3MON4D3/LuaSnip",
@@ -13,11 +12,8 @@ return {
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-      cmp.register_source("tags", require("cmp_tags").new())
 
       require("luasnip.loaders.from_vscode").lazy_load()
-
-      -- Extend verilog_systemverilog to use verilog and systemverilog snippets
       luasnip.filetype_extend("verilog_systemverilog", { "verilog", "systemverilog" })
 
       cmp.setup({
@@ -59,22 +55,6 @@ return {
           { name = "buffer" },
           { name = "path" },
         },
-      })
-
-      cmp.setup.filetype("verilog_systemverilog", {
-        sources = cmp.config.sources({
-          { name = "tags" },
-          {
-            name = "omni",
-            option = {
-              disable_omnifuncs = { "v:lua.vim.lsp.omnifunc" },
-            },
-          },
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
       })
     end,
   },

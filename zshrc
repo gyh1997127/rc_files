@@ -106,6 +106,6 @@ unsetopt share_history
 export PATH=$PATH:/opt/riscv:~/.local/bin
 export PATH=$PATH:~/.cargo/bin
 alias ctags="`brew --prefix`/bin/ctags"
-alias terms="tmux new-session -A -D -s main"
+alias terms="tmux new-session -A -D -s EN2"
 alias clockin="ssh -t en2 'terms; bash -l'"
 alias zshrc="source ~/.zshrc"

@@ -56,7 +56,7 @@ function source:complete(params, callback)
     return
   end
 
-  local escaped = vim.fn.escape(prefix, [[\.^$~[]]])
+  local escaped = vim.fn.escape(prefix, "\\.^$~[]")
   local matches = vim.fn.taglist("^" .. escaped)
   local seen = {}
   local items = {}

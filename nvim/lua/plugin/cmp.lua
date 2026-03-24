@@ -15,6 +15,7 @@ return {
 
       require("luasnip.loaders.from_vscode").lazy_load()
       luasnip.filetype_extend("verilog_systemverilog", { "verilog", "systemverilog" })
+      luasnip.filetype_extend("systemverilog", { "verilog", "verilog_systemverilog" })
 
       cmp.setup({
         snippet = {

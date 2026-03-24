@@ -1,16 +1,40 @@
 local api = vim.api
+local hdl_filetype = "verilog_systemverilog"
+local hdl_patterns = { "*.sv", "*.svh", "*.sva", "*.svi", "*.svp", "*.v", "*.vh" }
 
 -- Register HDL filetypes early so any later plugin sees the expected ft.
 vim.filetype.add({
   extension = {
-    sv = "verilog_systemverilog",
-    svh = "verilog_systemverilog",
-    sva = "verilog_systemverilog",
-    svi = "verilog_systemverilog",
-    svp = "verilog_systemverilog",
-    v = "verilog_systemverilog",
-    vh = "verilog_systemverilog",
+    sv = hdl_filetype,
+    svh = hdl_filetype,
+    sva = hdl_filetype,
+    svi = hdl_filetype,
+    svp = hdl_filetype,
+    v = hdl_filetype,
+    vh = hdl_filetype,
   },
+})
+
+local hdl_group = api.nvim_create_augroup("hdl_filetypes", { clear = true })
+
+api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufFilePost" }, {
+  group = hdl_group,
+  pattern = hdl_patterns,
+  callback = function(args)
+    if vim.bo[args.buf].filetype ~= hdl_filetype then
+      vim.bo[args.buf].filetype = hdl_filetype
+    end
+  end,
+  desc = "Normalize HDL buffers to verilog_systemverilog",
+})
+
+api.nvim_create_autocmd("FileType", {
+  group = hdl_group,
+  pattern = "systemverilog",
+  callback = function(args)
+    vim.bo[args.buf].filetype = hdl_filetype
+  end,
+  desc = "Normalize builtin systemverilog to verilog_systemverilog",
 })
 
 api.nvim_create_autocmd("FileType", {

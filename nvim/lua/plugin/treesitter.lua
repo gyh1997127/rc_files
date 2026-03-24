@@ -20,7 +20,7 @@ return {
     end
 
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "c", "cpp", "python", "lua", "verilog", "verilog_systemverilog" },
+      pattern = { "c", "cpp", "python", "lua", "verilog", "systemverilog", "verilog_systemverilog" },
       callback = function(args)
         pcall(vim.treesitter.start, args.buf)
       end,

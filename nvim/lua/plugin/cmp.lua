@@ -5,6 +5,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "quangnguyen30192/cmp-nvim-tags",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
@@ -53,6 +54,16 @@ return {
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
+          {
+            name = "tags",
+            option = {
+              complete_defer = 100,
+              current_buffer_only = false,
+              exact_match = false,
+              keyword_length = 3,
+              max_items = 15,
+            },
+          },
           { name = "buffer" },
           { name = "path" },
         },

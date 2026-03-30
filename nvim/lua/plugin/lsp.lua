@@ -23,6 +23,10 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
         callback = function(event)
+          -- Keep tag-based completion on the default tags backend instead of
+          -- the LSP tagfunc override.
+          vim.bo[event.buf].tagfunc = nil
+
           local opts = { buffer = event.buf, remap = false }
           vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)

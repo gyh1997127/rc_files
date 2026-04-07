@@ -36,7 +36,12 @@ opt.scrolloff = 8              -- Keep lines visible when scrolling
 opt.tags = { "./tags;", "tags" } -- Search local and parent tags files
 
 -- Fold settings
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldlevelstart = 99
 opt.foldnestmax = 3
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- For your 'jj' Esc delay (ttimeoutlen)
 vim.o.ttimeoutlen = 100

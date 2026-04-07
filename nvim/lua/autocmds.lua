@@ -1,6 +1,7 @@
 local api = vim.api
 local hdl_filetype = "verilog_systemverilog"
 local hdl_patterns = { "*.sv", "*.svh", "*.sva", "*.svi", "*.svp", "*.v", "*.vh" }
+local view_group = api.nvim_create_augroup("view_persistence", { clear = true })
 
 -- Register HDL filetypes early so any later plugin sees the expected ft.
 vim.filetype.add({
@@ -46,6 +47,32 @@ api.nvim_create_autocmd("FileType", {
     vim.opt_local.shiftwidth = 2
   end,
   desc = "Use 2-space indentation in all buffers",
+})
+
+local function is_file_buffer(buf)
+  return vim.bo[buf].buftype == "" and api.nvim_buf_get_name(buf) ~= ""
+end
+
+api.nvim_create_autocmd("BufWinLeave", {
+  group = view_group,
+  pattern = "*",
+  callback = function(args)
+    if is_file_buffer(args.buf) then
+      vim.cmd("silent! mkview")
+    end
+  end,
+  desc = "Persist folds and cursor position for file buffers",
+})
+
+api.nvim_create_autocmd("BufWinEnter", {
+  group = view_group,
+  pattern = "*",
+  callback = function(args)
+    if is_file_buffer(args.buf) then
+      vim.cmd("silent! loadview")
+    end
+  end,
+  desc = "Restore folds and cursor position for file buffers",
 })
 
 -- Disabled by default to avoid unexpected background jobs on every save.

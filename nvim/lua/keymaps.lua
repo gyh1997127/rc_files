@@ -23,6 +23,11 @@ keymap.set("n", "<leader>to", ":tabonly<cr>")
 keymap.set("n", "<leader>bd", ":bd<cr>", { desc = "Close buffer" })
 keymap.set("n", "<leader>ba", ":%bd!<cr>", { desc = "Close all buffers" })
 
+-- Folding
+keymap.set("n", "<leader>zz", "za", { desc = "Toggle fold" })
+keymap.set("n", "<leader>zR", "zR", { desc = "Open all folds" })
+keymap.set("n", "<leader>zM", "zM", { desc = "Close all folds" })
+
 -- Moving lines (Your Shift+J/K trick)
 keymap.set("n", "<S-j>", ":m .+1<CR>==", { desc = "Move line down" })
 keymap.set("n", "<S-k>", ":m .-2<CR>==", { desc = "Move line up" })
